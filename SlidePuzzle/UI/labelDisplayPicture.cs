@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KSlider.UI
+namespace SlidePuzzle.UI
 {
     /* this panel consist 3 label,
      * To show an image

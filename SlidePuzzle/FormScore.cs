@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KSlider
+namespace SlidePuzzle
 {
     public partial class FormScore : Form
     {

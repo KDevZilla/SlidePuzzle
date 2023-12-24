@@ -1,4 +1,4 @@
-﻿namespace KSlider
+﻿namespace SlidePuzzle
 {
     partial class FormTileApperance
     {

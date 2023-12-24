@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static KSlider.Game;
+using static SlidePuzzle.Game;
 
-namespace KSlider
+namespace SlidePuzzle
 {
     public partial class Form1 : Form
     {

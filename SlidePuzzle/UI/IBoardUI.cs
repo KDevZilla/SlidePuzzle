@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static KSlider.UI.BoardUI;
+using static SlidePuzzle.UI.BoardUI;
 
-namespace KSlider.UI
+namespace SlidePuzzle.UI
 {
     public interface IBoardUI
     {
@@ -16,5 +16,27 @@ namespace KSlider.UI
         Image BoardImage { get; set; }
         void Initial(Game game);
         void Clear();
+    }
+    public class MockUI : IBoardUI
+    {
+        public bool IsShowNumberOverLay { get; set; } = false;
+        public Image BoardImage { get; set; } = null;
+
+        public event TiltClickHandler TiltClick;
+
+        public void Clear()
+        {
+           // throw new NotImplementedException();
+        }
+
+        public void Initial(Game game)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void MoveTile(Point fromPosition, Point toPosition, bool isPerformAnimation)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

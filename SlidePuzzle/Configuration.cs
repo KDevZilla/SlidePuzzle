@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace KSlider
+namespace SlidePuzzle
 {
     [Serializable]
     public sealed  class Configuration

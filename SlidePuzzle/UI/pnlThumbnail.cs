@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-namespace KSlider.UI
+namespace SlidePuzzle.UI
 {
     /*
      * This control is a simeple panel control that display thumbnail images

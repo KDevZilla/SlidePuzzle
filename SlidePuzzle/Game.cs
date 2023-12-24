@@ -1,4 +1,4 @@
-﻿using KSlider.UI;
+﻿using SlidePuzzle.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KSlider
+namespace SlidePuzzle
 {
     public class Game
     {
