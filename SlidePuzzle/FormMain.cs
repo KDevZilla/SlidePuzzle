@@ -108,7 +108,7 @@ namespace SlidePuzzle
             game.Won -= Game_Won;
             game.Won += Game_Won;
             game.Initial();
-            game.Start();
+            game.StartWithAutomaticShuffle();
 
 
         }
@@ -193,9 +193,11 @@ namespace SlidePuzzle
 
         private void button3_Click(object sender, EventArgs e)
         {
+            /*
             game.Start();
             game.Won -= Game_Won;
             game.Won += Game_Won;
+            */
 
         }
 

@@ -67,7 +67,8 @@ namespace SlidePuzzle
             ui = UI;
             ui.TiltClick -= Ui_TiltClick;
             ui.TiltClick += Ui_TiltClick;
-            
+            this.GameState = GameStateEnum.Stop;
+            isInitialed = false;
         }
         public void Clear()
         {
@@ -151,8 +152,21 @@ namespace SlidePuzzle
         }
 
         Random R = new Random();
-        public void Start()
+        public void StartWithCustomBoard(int[,] customerBoardShuffle)
         {
+            if (customerBoardShuffle == null
+  || customerBoardShuffle.GetUpperBound(0) != board.GetUpperBound(0)
+  || customerBoardShuffle.GetUpperBound(1) != board.GetUpperBound(1))
+            {
+                throw new Exception("If isNeedtoShuffle is false, the caller need to send customerBoardShuffle");
+            }
+
+            this.board = (int[,])customerBoardShuffle.Clone();
+            this.GameState = GameStateEnum.Running;
+        }
+        public void StartWithAutomaticShuffle()
+        {
+
             GameState = GameStateEnum.Shuffle;
             Shuffle();
             GameState = GameStateEnum.Running;
@@ -206,6 +220,7 @@ namespace SlidePuzzle
 
            
         }
+        public bool isInitialed { get; private set; } = false;
         public void Initial()
         {
             int i;
@@ -226,7 +241,8 @@ namespace SlidePuzzle
             Finishedboard[PositionZero.Y, PositionZero.X] = 0;
             SetBoardValue(PositionZero, 0);
 
-            ui.Initial(this); 
+            ui.Initial(this);
+            isInitialed = true;
         }
         public event EventHandler Won;
         private void Ui_TiltClick(int TileNumber)
@@ -338,6 +354,11 @@ namespace SlidePuzzle
         {
             get
             {
+                if (!isInitialed)
+                {
+                    return false;
+                }
+                
                 int i;
                 int j;
                 for (i = 0; i < RowSize; i++)
