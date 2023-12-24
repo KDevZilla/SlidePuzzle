@@ -74,7 +74,7 @@ namespace SlidePuzzleTest
         }
 
         [TestMethod]
-        public void GameStart()
+        public void GameStartWithCustomBoard()
         {
             Game game = new Game(4, 4, new SlidePuzzle.UI.MockUI());
             game.Initial();
@@ -111,6 +111,136 @@ namespace SlidePuzzleTest
                 }
             }
 
+
+
+        }
+
+        [TestMethod]
+        public void StartWithAutomaticShuffle()
+        {
+            Game game = new Game(4, 4, new SlidePuzzle.UI.MockUI());
+            game.Initial();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+            Assert.IsTrue(game.IsInFinishedPosition);
+
+
+            Assert.IsTrue(game.board != null);
+            Assert.IsTrue(game.Finishedboard != null);
+
+            game.StartWithAutomaticShuffle();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Running);
+
+            Assert.IsTrue(game.board.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.board.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsFalse(game.IsInFinishedPosition);
+            int i;
+            int j;
+            Boolean isAtLestOneCellDifferentThantheboard = false;
+            for (i = 0; i < 4; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    if(game.board [i,j] != game.Finishedboard[i, j])
+                    {
+                        isAtLestOneCellDifferentThantheboard = true;
+                    }
+                   // Assert.IsTrue(game.board[i, j] == customBoardShuffle[i, j]);
+                }
+            }
+
+            Assert.IsTrue(isAtLestOneCellDifferentThantheboard);
+
+
+        }
+
+        [TestMethod]
+        public void GameMoveCell()
+        {
+            Game game = new Game(4, 4, new SlidePuzzle.UI.MockUI());
+            game.Initial();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+            Assert.IsTrue(game.IsInFinishedPosition);
+
+
+            Assert.IsTrue(game.board != null);
+            Assert.IsTrue(game.Finishedboard != null);
+
+
+            int[,] customBoardShuffle = new int[,]
+            {
+                {1,2,3,4 },
+                {5,6,7,8 },
+                {9,10,11,12 },
+                {13,14,0,15 }
+            };
+            game.StartWithCustomBoard(customerBoardShuffle: customBoardShuffle);
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Running);
+
+            Assert.IsTrue(game.board.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.board.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsFalse(game.IsInFinishedPosition);
+            int i;
+            int j;
+            for (i = 0; i < 4; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    Assert.IsTrue(game.board[i, j] == customBoardShuffle[i, j]);
+                }
+            }
+            game.MoveCell(16, false);
+            
+            //game.MoveTile(new Position(3, 3), new Position(3, 2));
+            Assert.IsTrue(game.IsInFinishedPosition);
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+
+            // game.MoveTile (new System.Drawing.Point ())
+
+
+        }
+        [TestMethod]
+        public void GameFinish()
+        {
+            Game game = new Game(4, 4, new SlidePuzzle.UI.MockUI());
+            game.Initial();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+            Assert.IsTrue(game.IsInFinishedPosition);
+
+
+            Assert.IsTrue(game.board != null);
+            Assert.IsTrue(game.Finishedboard != null);
+
+
+            int[,] customBoardShuffle = new int[,]
+            {
+                {1,2,3,4 },
+                {5,6,7,8 },
+                {9,10,11,12 },
+                {13,14,0,15 }
+            };
+            game.StartWithCustomBoard(customerBoardShuffle: customBoardShuffle);
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Running);
+
+            Assert.IsTrue(game.board.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.board.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsFalse(game.IsInFinishedPosition);
+            int i;
+            int j;
+            for (i = 0; i < 4; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    Assert.IsTrue(game.board[i, j] == customBoardShuffle[i, j]);
+                }
+            }
+            game.MoveTile(new Position(3, 3), new Position(3, 2));
+           // game.MoveTile (new System.Drawing.Point ())
 
 
         }

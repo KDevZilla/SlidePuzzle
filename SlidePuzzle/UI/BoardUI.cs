@@ -145,34 +145,7 @@ namespace SlidePuzzle.UI
         public Boolean IsCustomRender { get; set; }
         public bool IsShowNumberOverLay { get ; set ; }
         public Image BoardImage { get; set; }
-        /*
-private void labelPaint(object sender, PaintEventArgs e)
-{
 
-if (!IsCustomRender)
-{
-return;
-}
-
-Label L = (Label)sender;
-if( L.Tag == null )
-{
-throw new Exception("Tag is null, please check");
-}
-int Index = int.Parse(L.Tag.ToString ());
-
-Rectangle R = new Rectangle(L.Left, L.Top, L.Width, L.Height);
-
-L.CreateGraphics().DrawImage(this.TileImage, R);
-
-
-// e.Graphics.Clip = new Region(R);
-// Log("Left " + L.Left.ToString() + "  Top " + L.Top.ToString());
-
-
-//   throw new NotImplementedException();
-}
-*/
         private void DrawLabel(Image img, Label L,int x,int y)
         {
             DrawLabel(img , L, x, y, 0, 0);
@@ -200,13 +173,14 @@ L.CreateGraphics().DrawImage(this.TileImage, R);
 
         }
 
-        public void MoveTile(Point fromPosition, Point toPosition,Boolean isPerformAnimation)
+        public void MoveTile(Position fromPosition, Position toPosition, Boolean isPerformAnimation)
         {
             //DicPosition []
          
-            int FromValue = board[fromPosition.Y, fromPosition.X];
-            int destinationTop = toPosition.Y * TileHeight;
-            int destinationLeft = toPosition.X * TileWidth;
+            int FromValue = board[fromPosition.Row , fromPosition.Column ];
+
+            int destinationTop = toPosition.Row  * TileHeight;
+            int destinationLeft = toPosition.Column  * TileWidth;
             if (!isPerformAnimation)
             {
                 DicTilt[FromValue].Top = destinationTop;

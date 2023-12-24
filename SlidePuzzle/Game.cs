@@ -14,9 +14,9 @@ namespace SlidePuzzle
         public int[,] Finishedboard { get; private set; }
         public int RowSize { get; private set; }
         public int ColSize { get; private set; }
-        Dictionary<int, Point> DicPositionFromNumber = new Dictionary<int, Point>();
-        Dictionary<Point, int> DicNumberFromPosition = new Dictionary<Point, int>();
-        Point PositionZero = new Point();
+        Dictionary<int, Position> DicPositionFromNumber = new Dictionary<int, Position>();
+        Dictionary<String, int> DicNumberFromPosition = new Dictionary<String, int>();
+        Position PositionZero  = Position.Empty;
 
         public enum GameStateEnum
         {
@@ -86,30 +86,45 @@ namespace SlidePuzzle
         }
 
 
-        private bool IsPositionInRange(Point P) => P.X >= 0 &&
-                P.X < RowSize &&
-                P.Y >= 0 &&
-                P.Y < RowSize;
-
+        private bool IsPositionInRange(Position P) => P.Row  >= 0 &&
+                P.Row < RowSize &&
+                P.Column  >= 0 &&
+                P.Column  < ColSize;
+        private List<Position> _listPosition = null;
+        private List<Position> listPosition
+        {
+            get
+            {
+                if(_listPosition == null)
+                {
+                    _listPosition = new List<Position>();
+                    Position positionUp = new Position(PositionZero.Row - 1, PositionZero.Column);
+                    Position positionDown = new Position(PositionZero.Row, PositionZero.Column);
+                    Position positionLeft = new Position(PositionZero.Row, PositionZero.Column - 1);
+                    Position positionRight = new Position(PositionZero.Row, PositionZero.Column + 1);
+                    //List<Position> listPoint = new List<Position>();
+                    _listPosition.Add(positionUp);
+                    _listPosition.Add(positionDown);
+                    _listPosition.Add(positionLeft);
+                    _listPosition.Add(positionRight);
+                }
+                return _listPosition;
+            }
+        }
         private List<int> GetTileAvilable()
         {
-            Point PUp = new Point(PositionZero.X, PositionZero.Y - 1);
-            Point PDown = new Point(PositionZero.X, PositionZero.Y + 1);
-            Point PLeft = new Point(PositionZero.X - 1, PositionZero.Y);
-            Point PRight = new Point(PositionZero.X + 1, PositionZero.Y);
+            
             List<int> listResult = new List<int>();
-            List<Point> listPoint = new List<Point>();
-            listPoint.Add(PUp);
-            listPoint.Add(PDown);
-            listPoint.Add(PLeft);
-            listPoint.Add(PRight);
-            foreach (Point poi in listPoint)
+
+
+            //listPosition.ForEach (x=> if(IsPositionInRange (x)) listResult.Add(DicNumberFromPosition[poi])  )
+            foreach (Position poi in listPosition )
             {
                 if (!IsPositionInRange(poi))
                 {
                     continue;
                 }
-                listResult.Add(DicNumberFromPosition[poi]);
+                listResult.Add(DicNumberFromPosition[poi.key]);
             }
             return listResult;
         }
@@ -121,29 +136,29 @@ namespace SlidePuzzle
             }
             DirectionEnum DirectionResult = DirectionEnum.None;
             //Point FromPoint = ConvertFromLinerToTable(FromPosition, 4);
-            Point FromPoint = DicPositionFromNumber[FromPosition];
+            Position FromPoint = DicPositionFromNumber[FromPosition];
             int i;
             int j;
 
-            if (FromPoint.X + 1 == PositionZero.X &&
-                FromPoint.Y == PositionZero.Y)
+            if (FromPoint.Column  + 1 == PositionZero.Column  &&
+                FromPoint.Row  == PositionZero.Row )
             {
                 return DirectionEnum.Right;
             }
-            if (FromPoint.X == PositionZero.X &&
-                FromPoint.Y + 1 == PositionZero.Y)
+            if (FromPoint.Column  == PositionZero.Column  &&
+                FromPoint.Row  + 1 == PositionZero.Row )
             {
                 return DirectionEnum.Down;
             }
 
-            if (FromPoint.X - 1 == PositionZero.X &&
-                FromPoint.Y == PositionZero.Y)
+            if (FromPoint.Column  - 1 == PositionZero.Column  &&
+                FromPoint.Row  == PositionZero.Row)
             {
                 return DirectionEnum.Left;
             }
 
-            if (FromPoint.X == PositionZero.X &&
-                FromPoint.Y - 1 == PositionZero.Y)
+            if (FromPoint.Column  == PositionZero.Column &&
+                FromPoint.Row  - 1 == PositionZero.Row )
             {
                 return DirectionEnum.Up;
             }
@@ -230,15 +245,15 @@ namespace SlidePuzzle
                 for(j=0;j<ColSize;j++)
                 {
                     int Value = (i * RowSize) + (j + 1);
-                    SetBoardValue(new Point(j, i),Value);
+                    SetBoardValue(new Position(i,j),Value);
                     Finishedboard[i, j] = Value;
 
                 }
             }
 
-            PositionZero.X = ColSize - 1;
-            PositionZero.Y = RowSize - 1;
-            Finishedboard[PositionZero.Y, PositionZero.X] = 0;
+            PositionZero = new Position(RowSize - 1, ColSize - 1);
+            
+            Finishedboard[PositionZero.Row , PositionZero.Column] = 0;
             SetBoardValue(PositionZero, 0);
 
             ui.Initial(this);
@@ -266,22 +281,22 @@ namespace SlidePuzzle
          
         }
 
-        public void SetBoardValue(Point position, int Value)
+        public void SetBoardValue(Position position, int Value)
         {
-            board[position.Y, position.X] = Value;
+            board[position.Row , position.Column ] = Value;
 
             if (!DicPositionFromNumber.ContainsKey(Value))
             {
-                DicPositionFromNumber.Add(Value, new Point(-1, -1));
+                DicPositionFromNumber.Add(Value, Position.Empty);
             }
-            if (!DicNumberFromPosition.ContainsKey(position))
+            if (!DicNumberFromPosition.ContainsKey(position.key))
             {
-                DicNumberFromPosition.Add(position, -1);
+                DicNumberFromPosition.Add(position.key, -1);
             }
 
 
             DicPositionFromNumber[Value] = position;
-            DicNumberFromPosition[position] = Value;
+            DicNumberFromPosition[position.key] = Value;
 
             if (Value == 0)
             {
@@ -289,17 +304,19 @@ namespace SlidePuzzle
             }
 
         }
-        public void MoveTile(Point fromPosition, Point toPosition)
+        public void MoveTile(Position fromPosition, Position toPosition)
         {
             //DicPosition []
-            if (toPosition.X != PositionZero.X ||
-                toPosition.Y != PositionZero.Y)
+            /*
+            if (toPosition.Column  != PositionZero.Column  ||
+                toPosition.Row  != PositionZero.Row)
             {
-                throw new Exception("Cannot move to " + toPosition.Y.ToString() + " " + toPosition.X.ToString());
+                throw new Exception($"Cannot move to {toPosition.Row.ToString()} ,{toPosition.Column.ToString()}");
             }
+            */
             // int LabelValue = ConvertFromTableToLiner(fromPosition.X, fromPosition.Y);
 
-            int FromValue = board[fromPosition.Y, fromPosition.X];
+            int FromValue = board[fromPosition.Row , fromPosition.Column ];
             SetBoardValue(toPosition, FromValue);
             SetBoardValue(fromPosition, 0);
 
@@ -314,7 +331,7 @@ namespace SlidePuzzle
 
         }
 
-        public Point GetNeibhourPosition(Point fromPosition, DirectionEnum direction)
+        public Position GetNeibhourPosition(Position fromPosition, DirectionEnum direction)
         {
             int Dx = 0;
             int Dy = 0;
@@ -333,23 +350,24 @@ namespace SlidePuzzle
                     Dx = -1;
                     break;
             }
-            Point PResult = new Point(fromPosition.X + Dx, fromPosition.Y + Dy);
+            //Point PResult = new Point(fromPosition.Column  + Dx, fromPosition.Y + Dy);
+            Position positionResult = new Position(fromPosition.Row + Dy, fromPosition.Column + Dx);
             String ExceptionMessage = "";
-            if (PResult.X < 0 || PResult.X >= RowSize
-              || PResult.Y < 0 || PResult.Y >= RowSize)
+            if (positionResult.Column < 0 
+              || positionResult.Column  >= ColSize
+              || positionResult.Row  < 0 
+              || positionResult.Row  >= RowSize)
             {
-                ExceptionMessage = " Result is " + PointStr(PResult) + " which is not correct ";
+                ExceptionMessage = $" Result is {PositionStr(positionResult)} which is not correct ";
                 throw new Exception(ExceptionMessage);
             }
 
-            return PResult;
+            return positionResult;
 
         }
-        private String PointStr(Point pPoint)
-        {
-            return "X::" + pPoint.X.ToString() +
-                "Y::" + pPoint.Y;
-        }
+        private String PositionStr(Position position) => $"Row:{position.Row}, Column:{position.Column}";
+
+        
         public bool IsInFinishedPosition
         {
             get
@@ -375,7 +393,7 @@ namespace SlidePuzzle
                 return true;
             }
         }
-        private void MoveCell(int index,Boolean isPerformAnimation)
+        public void MoveCell(int index,Boolean isPerformAnimation)
         {
             if(GameState == GameStateEnum.Stop )
             {
@@ -388,8 +406,8 @@ namespace SlidePuzzle
                 return;
             }
 
-            Point FromPosition = DicPositionFromNumber[index];
-            Point ToPosition = GetNeibhourPosition(FromPosition, MovetoEmptyDirection);
+            Position FromPosition = DicPositionFromNumber[index];
+            Position ToPosition = GetNeibhourPosition(FromPosition, MovetoEmptyDirection);
 
 
             ui.MoveTile(FromPosition, ToPosition, isPerformAnimation);

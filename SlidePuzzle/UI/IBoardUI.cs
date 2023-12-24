@@ -11,7 +11,7 @@ namespace SlidePuzzle.UI
     public interface IBoardUI
     {
         event TiltClickHandler TiltClick;
-        void MoveTile(Point fromPosition, Point toPosition, Boolean isPerformAnimation);
+        void MoveTile(Position fromPosition, Position toPosition, Boolean isPerformAnimation);
         Boolean IsShowNumberOverLay { get; set; }
         Image BoardImage { get; set; }
         void Initial(Game game);
@@ -28,14 +28,17 @@ namespace SlidePuzzle.UI
         {
            // throw new NotImplementedException();
         }
-
+        private Game game = null;
         public void Initial(Game game)
         {
+            this.game = game;
             //throw new NotImplementedException();
         }
 
-        public void MoveTile(Point fromPosition, Point toPosition, bool isPerformAnimation)
+        public void MoveTile(Position fromPosition, Position toPosition, bool isPerformAnimation)
         {
+            game.SetBoardValue(toPosition, game.board[fromPosition.Row, fromPosition.Column]);
+            game.SetBoardValue(fromPosition, 0);
             //throw new NotImplementedException();
         }
     }
