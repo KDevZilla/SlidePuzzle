@@ -203,10 +203,9 @@ namespace SlidePuzzle
             int i = 0;
             for (iLoop = 1; iLoop <= iMaxLoop; iLoop++)
             {
-                //   this.Initial();
+
                 int PreviousInt = -1;
 
-             //   this.panel1.Visible = false;
                 for (i = 1; i <= 100; i++)
                 {
                     
@@ -229,18 +228,10 @@ namespace SlidePuzzle
 
 
                     MoveCell(CandidateTilt, isPerformAnimation: false);
-                     
-                    //System.Threading.Thread.Sleep(5);
-                }
-                // this.panel1.Visible = true;
-                /*
-                string str = ShowValue(board, iLoop, 5, 5);
-                strB.Append(str)
-                    .Append(Environment.NewLine);
-                */
-            }
 
-            //this.panel1.Visible = true;
+                }
+
+            }
 
            
         }
@@ -276,8 +267,6 @@ namespace SlidePuzzle
                 return;
             }
 
-            // throw new NotImplementedException();
-
             MoveCell(TileNumber, isPerformAnimation:true);
             
          
@@ -308,28 +297,11 @@ namespace SlidePuzzle
         }
         public void MoveTile(Position fromPosition, Position toPosition)
         {
-            //DicPosition []
-            /*
-            if (toPosition.Column  != PositionZero.Column  ||
-                toPosition.Row  != PositionZero.Row)
-            {
-                throw new Exception($"Cannot move to {toPosition.Row.ToString()} ,{toPosition.Column.ToString()}");
-            }
-            */
-            // int LabelValue = ConvertFromTableToLiner(fromPosition.X, fromPosition.Y);
 
             int FromValue = board[fromPosition.Row , fromPosition.Column ];
             SetBoardValue(toPosition, FromValue);
             SetBoardValue(fromPosition, 0);
 
-
-          //  ui.MoveTile ()
-           // DicTilt[FromValue].Top = toPosition.Y * lblTemplate.Height;
-           // DicTilt[FromValue].Left = toPosition.X * lblTemplate.Width;
-           /*
-            this.textBox1.Text += fromPosition.Y + "," + fromPosition.X + "=>" +
-                toPosition.Y + "," + toPosition.X + Environment.NewLine;
-                */
 
         }
 
@@ -352,7 +324,7 @@ namespace SlidePuzzle
                     Dx = -1;
                     break;
             }
-            //Point PResult = new Point(fromPosition.Column  + Dx, fromPosition.Y + Dy);
+            
             Position positionResult = new Position(fromPosition.Row + Dy, fromPosition.Column + Dx);
             String ExceptionMessage = "";
             if (positionResult.Column < 0 
@@ -418,52 +390,12 @@ namespace SlidePuzzle
             if (this.IsInFinishedPosition)
             {
                 GameState = GameStateEnum.Stop;
-                if (Won != null)
-                {
-                    Won(this, new EventArgs());
-                }
+                Won?.Invoke(this, new EventArgs());
+                
             }
 
         }
-        /*
-        private DirectionEnum GetPositionAviable(int FromPosition)
-        {
-            if (!DicPositionFromNumber.ContainsKey(FromPosition))
-            {
-                throw new Exception("Postion is incorrect " + FromPosition.ToString());
-            }
-            DirectionEnum DirectionResult = DirectionEnum.None;
-            //Point FromPoint = ConvertFromLinerToTable(FromPosition, 4);
-            Point FromPoint = DicPositionFromNumber[FromPosition];
-            int i;
-            int j;
 
-            if (FromPoint.X + 1 == PositionZero.X &&
-                FromPoint.Y == PositionZero.Y)
-            {
-                return DirectionEnum.Right;
-            }
-            if (FromPoint.X == PositionZero.X &&
-                FromPoint.Y + 1 == PositionZero.Y)
-            {
-                return DirectionEnum.Down;
-            }
-
-            if (FromPoint.X - 1 == PositionZero.X &&
-                FromPoint.Y == PositionZero.Y)
-            {
-                return DirectionEnum.Left;
-            }
-
-            if (FromPoint.X == PositionZero.X &&
-                FromPoint.Y - 1 == PositionZero.Y)
-            {
-                return DirectionEnum.Up;
-            }
-
-            return DirectionEnum.None;
-        }
-        */
 
     }
 }

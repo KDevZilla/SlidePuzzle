@@ -29,11 +29,38 @@ namespace SlidePuzzle
             return list;
 
         }
-        UI.pnlThumbnail pnlDis = null;
+        //UI.pnlThumbnail pnlDis = null;
+
+        public String ImageFilePath { get; set; } = "";
+        public UI.ImageCached imageCached { get; set; } = null;
+        public void InitialControlAndLoadImages()
+        {
+            pnlThumbnail1.HorizontalScroll.Enabled = true;
+            pnlThumbnail1.VerticalScroll.Enabled = true;
+            pnlThumbnail1.AddNewButton_Clicked += btnAddNewImage_Click;
+            pnlThumbnail1.ItemDouble_Clicked += PnlDis_ItemDouble_Clicked;
+            pnlThumbnail1.Enabled = false;
+            pnlThumbnail1.imageCache = imageCached;
+
+
+            var listImage = new List<UI.pnlThumbnail.ImageInfo>();
+            listImage = GetImagesFromDirectory(ImageFilePath);
+            RenderImages(pnlThumbnail1, listImage);
+
+            this.KeyPreview = true;
+            this.Text = pnlThumbnail1.Height + "," + this.pnlThumbnail1.Width;
+
+            this.chkUseImage.CheckedChanged += (o, e2) => this.pnlThumbnail1.Enabled = chkUseImage.Checked;
+
+        }
         private void FormTestPnlDisplay_Load(object sender, EventArgs e)
         {
+            if(ImageFilePath.Equals(""))
+            {
+                throw new Exception($"{ImageFilePath} is blank, please set it first");
+            }
 
-
+            /*
             pnlDis = new UI.pnlThumbnail()
             {
                 Visible = true,
@@ -43,22 +70,18 @@ namespace SlidePuzzle
                 Width = 682
 
             };
+            */
 
-            pnlDis.HorizontalScroll.Enabled = true;
-            pnlDis.VerticalScroll.Enabled = true;
-            pnlDis.AddNewButton_Clicked += btnAddNewImage_Click;
-            pnlDis.ItemDouble_Clicked += PnlDis_ItemDouble_Clicked;
-            this.Controls.Add(pnlDis);
-            var listImage = new List<UI.pnlThumbnail.ImageInfo>();
-            listImage = GetImagesFromDirectory(FileUtility.ImageBoardPath);
-            //listImage = GetImagesFromDirectory(@"D:\Krirk\KRIRK_Practice\Pictures\From_ACER\");
-
-            RenderImages(pnlDis, listImage);
-            this.KeyPreview = true;
-            this.Text = pnlDis.Height + "," + this.pnlDis.Width;
-
+         
         }
-
+        // To let caller access it to that the caller can keep it it cache
+        /*
+        public UI.pnlThumbnail PanelThumbNail
+        {
+            get => this.pnlThumbnail1;
+            set => this.pnlThumbnail1 = value;
+        }
+        */
         private void PnlDis_ItemDouble_Clicked(object sender, EventArgs e)
         {
             String fileName = ((UI.labelDisplayPicture.StringEventArgs)e).Value;
@@ -75,7 +98,7 @@ namespace SlidePuzzle
                  || keyData == Keys.Left
                  || keyData == Keys.Right)
             {
-                pnlDis.MoveSelectedImage((UI.pnlThumbnail.MoveSelectedImageDirection)keyData);
+                pnlThumbnail1.MoveSelectedImage((UI.pnlThumbnail.MoveSelectedImageDirection)keyData);
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -94,7 +117,7 @@ namespace SlidePuzzle
             {
                 return;
             }
-            pnlDis.MoveSelectedImage((UI.pnlThumbnail.MoveSelectedImageDirection)e.KeyCode);
+            pnlThumbnail1.MoveSelectedImage((UI.pnlThumbnail.MoveSelectedImageDirection)e.KeyCode);
 
         }
 
@@ -129,10 +152,39 @@ namespace SlidePuzzle
                 return;
             }
             var listImage = new List<UI.pnlThumbnail.ImageInfo>();
-            listImage = GetImagesFromDirectory(FileUtility.ImageBoardPath);
+            listImage = GetImagesFromDirectory(ImageFilePath);
 
-            RenderImages(pnlDis, listImage);
+            RenderImages(pnlThumbnail1, listImage);
 
+        }
+
+        private void btnAddNewImage_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+        public Boolean IsUseImage { get; private set; } = true;
+        public string SelectedFileName { get; private set; } = "";
+        public int NumberofSlide { get; private set; } = 15;
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+
+
+            this.IsUseImage = this.chkUseImage.Checked;
+
+            this.SelectedFileName = IsUseImage
+                ? pnlThumbnail1.SelectedImageFileName
+                : "";
+
+            this.NumberofSlide = int.Parse(this.cboNumberofBlock.Items[this.cboNumberofBlock.SelectedIndex].ToString());
+            this.Close();
         }
     }
 }

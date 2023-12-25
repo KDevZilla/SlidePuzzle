@@ -31,6 +31,9 @@ namespace SlidePuzzle.UI
             }
 
         }
+        public ImageCached imageCache { get; set; } = null;
+
+        public Boolean IsUseCacheImage { get; set; } = false;
         public List<ImageInfo> listImageInfo { get; private set; } = new List<ImageInfo>();
         public event EventHandler AddNewButton_Clicked;
         public event EventHandler ItemDouble_Clicked;
@@ -47,7 +50,7 @@ namespace SlidePuzzle.UI
         private int tileHeight { get; set; } = 115;
         private int spaceBetweenRowPixel { get; set; } = 10;
         private int spaceBetweenColumnPixel { get; set; } = 10;
-
+        public String SelectedImageFileName { get; set; } = "";
 
         public static string[] GetFiles(string path, string searchPattern, SearchOption searchOption)
         {
@@ -100,8 +103,9 @@ namespace SlidePuzzle.UI
                 labelDisplayPicture pic = new labelDisplayPicture();
                 listLabelDisplayImage.Add(pic);
                 Position position = new Position(i / numberofImagePerRow, i % numberofImagePerRow);
+                
                 pic.Name = listImageInfo[i].FilePath;
-                pic.InitialValue(i.ToString (), listImageInfo[i].FilePath, tileHeight, tileWidth,position);
+                pic.InitialValue(i.ToString (), listImageInfo[i].FilePath, tileHeight, tileWidth,position, imageCache);
                 pic.Top = (tileHeight + 36 + spaceBetweenRowPixel) * lastRow;
                 pic.Left = (tileWidth + 36 + spaceBetweenColumnPixel) * lastColumn;
                 pic.Tag = false;
@@ -187,6 +191,7 @@ namespace SlidePuzzle.UI
                     arr2DPictures[i, j] = listLabelDisplayImage[i * numberofImagePerRow + j];
                 }
             }
+            this.SelectedImageFileName = "";
 
         }
 
@@ -204,6 +209,7 @@ namespace SlidePuzzle.UI
             p.BackColor = SelectedLabelBackColor;
             p.Invalidate();
             SelectedImagesPosition = p.Position;
+            SelectedImageFileName = p.PictureFilePath;
             this.ScrollControlIntoView(p);
         }
 

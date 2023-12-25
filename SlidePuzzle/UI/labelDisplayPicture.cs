@@ -56,17 +56,39 @@ namespace SlidePuzzle.UI
             }
         }
         public String ID { get; private set; } = "";
-        public void InitialValue(String ID, String pictureFilePath, int pictureHeight, int picturewidth, Position position)
+    //    private ImageCached imageCache = null;
+        public void InitialValue(String ID, String pictureFilePath, int pictureHeight, int picturewidth, Position position, ImageCached pImageCache)
         {
+
             this.Position = position;
             this.ID = ID;
             this.imageName = System.IO.Path.GetFileNameWithoutExtension(pictureFilePath);
 
             this.Width = picturewidth + 36;
             this.Height = pictureHeight + 40;
+
+
+            String imageKey = $"{pictureFilePath}_{picturewidth}_{pictureHeight}";
+            Image image = null;
+            if(pImageCache != null)
+            {
+                if (pImageCache.IsExist(imageKey))
+                {
+                    image = pImageCache.GetImage(imageKey);
+                }
+                else
+                {
+                    pImageCache.AddImage(imageKey, GetThumb(pictureFilePath, picturewidth, pictureHeight));
+                    image = pImageCache.GetImage(imageKey);
+                }
+            }
+            else
+            {
+                image = GetThumb(pictureFilePath, picturewidth, pictureHeight);
+            }
             Label lblPicture = new Label()
             {
-                Image = GetThumb(pictureFilePath, picturewidth, pictureHeight),
+                Image = image,
                 Height = pictureHeight,
                 Width = picturewidth,
                 Top = 10,

@@ -66,6 +66,7 @@ namespace SlidePuzzle
         }
         private void NewGame()
         {
+
             string UIControlName = "BoardUI";
             if (game != null)
             {
@@ -158,10 +159,31 @@ namespace SlidePuzzle
             Application.Exit();
 
         }
-        
 
+        private ImageCached imageCached = new ImageCached();
+        //  private pnlThumbnail PnlThumnail = null;
+        private FormTestPnlDisplay _FormChooseGame = null;
+        private FormTestPnlDisplay FormChooseGame
+        {
+            get
+            {
+                if(_FormChooseGame == null)
+                {
+                    _FormChooseGame = new FormTestPnlDisplay();
+                    _FormChooseGame.ImageFilePath = @"D:\Krirk\KRIRK_Practice\Pictures\From_ACER\";
+                    _FormChooseGame.StartPosition = FormStartPosition.CenterParent;
+                    _FormChooseGame.imageCached = this.imageCached;
+                    _FormChooseGame.InitialControlAndLoadImages();
+                }
+                return _FormChooseGame;
+            }
+        }
         private void ToolStripMenuItemNewGame_Click(object sender, EventArgs e)
         {
+
+            FormChooseGame.ShowDialog(this);
+           
+         //   this.PnlThumnail =formChooseGame
             NewGame();
         }
 
