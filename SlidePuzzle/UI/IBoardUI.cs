@@ -28,17 +28,17 @@ namespace SlidePuzzle.UI
         {
            // throw new NotImplementedException();
         }
-        private Game game = null;
+       // private Game game = null;
         public void Initial(Game game)
         {
-            this.game = game;
+            //this.game = game;
             //throw new NotImplementedException();
         }
 
         public void MoveTile(Position fromPosition, Position toPosition, bool isPerformAnimation)
         {
-            game.SetBoardValue(toPosition, game.board[fromPosition.Row, fromPosition.Column]);
-            game.SetBoardValue(fromPosition, 0);
+            //game.SetBoardValue(toPosition, game.board[fromPosition.Row, fromPosition.Column]);
+           // game.SetBoardValue(fromPosition, 0);
             //throw new NotImplementedException();
         }
     }

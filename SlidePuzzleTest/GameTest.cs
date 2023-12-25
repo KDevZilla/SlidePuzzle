@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SlidePuzzle;
+using SlidePuzzle.UI;
 
 namespace SlidePuzzleTest
 {
+   
     [TestClass]
     public class GameTest
     {
@@ -18,20 +20,20 @@ namespace SlidePuzzleTest
             int i;
             int j;
             Assert.IsTrue(game.board != null);
-            Assert.IsTrue(game.Finishedboard != null);
+            Assert.IsTrue(game.GoalStateboard != null);
             Assert.IsTrue(game.RowSize == 4);
             Assert.IsTrue(game.ColSize == 4);
             Assert.IsTrue(game.board.GetUpperBound(0) == 3);
             Assert.IsTrue(game.board.GetUpperBound(1) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(1) == 3);
 
             for (i = 0; i < 4; i++)
             {
                 for (j = 0; j < 4; j++)
                 {
                     Assert.IsTrue(game.board[i, j] == 0);
-                    Assert.IsTrue(game.Finishedboard[i, j] == 0);
+                    Assert.IsTrue(game.GoalStateboard[i, j] == 0);
                 }
             }
 
@@ -53,7 +55,7 @@ namespace SlidePuzzleTest
 
 
             Assert.IsTrue(game.board != null);
-            Assert.IsTrue(game.Finishedboard != null);
+            Assert.IsTrue(game.GoalStateboard != null);
             int i;
             int j;
             for (i = 0; i < 4; i++)
@@ -66,7 +68,7 @@ namespace SlidePuzzleTest
                         value = 0;
                     }
                     Assert.IsTrue(game.board[i, j] == value);
-                    Assert.IsTrue(game.Finishedboard[i, j] == value);
+                    Assert.IsTrue(game.GoalStateboard[i, j] == value);
                 }
             }
 
@@ -83,7 +85,7 @@ namespace SlidePuzzleTest
 
 
             Assert.IsTrue(game.board != null);
-            Assert.IsTrue(game.Finishedboard != null);
+            Assert.IsTrue(game.GoalStateboard != null);
 
 
             int[,] customBoardShuffle = new int[,]
@@ -98,8 +100,11 @@ namespace SlidePuzzleTest
 
             Assert.IsTrue(game.board.GetUpperBound(0) == 3);
             Assert.IsTrue(game.board.GetUpperBound(1) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.PositionOfNumberZero.Row == 3);
+            Assert.IsTrue(game.PositionOfNumberZero.Column  == 2);
+
             Assert.IsFalse(game.IsInFinishedPosition);
             int i;
             int j;
@@ -125,15 +130,15 @@ namespace SlidePuzzleTest
 
 
             Assert.IsTrue(game.board != null);
-            Assert.IsTrue(game.Finishedboard != null);
+            Assert.IsTrue(game.GoalStateboard != null);
 
             game.StartWithAutomaticShuffle();
             Assert.IsTrue(game.GameState == Game.GameStateEnum.Running);
 
             Assert.IsTrue(game.board.GetUpperBound(0) == 3);
             Assert.IsTrue(game.board.GetUpperBound(1) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(1) == 3);
             Assert.IsFalse(game.IsInFinishedPosition);
             int i;
             int j;
@@ -142,7 +147,7 @@ namespace SlidePuzzleTest
             {
                 for (j = 0; j < 4; j++)
                 {
-                    if(game.board [i,j] != game.Finishedboard[i, j])
+                    if(game.board [i,j] != game.GoalStateboard[i, j])
                     {
                         isAtLestOneCellDifferentThantheboard = true;
                     }
@@ -165,7 +170,7 @@ namespace SlidePuzzleTest
 
 
             Assert.IsTrue(game.board != null);
-            Assert.IsTrue(game.Finishedboard != null);
+            Assert.IsTrue(game.GoalStateboard != null);
 
 
             int[,] customBoardShuffle = new int[,]
@@ -180,8 +185,8 @@ namespace SlidePuzzleTest
 
             Assert.IsTrue(game.board.GetUpperBound(0) == 3);
             Assert.IsTrue(game.board.GetUpperBound(1) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(1) == 3);
             Assert.IsFalse(game.IsInFinishedPosition);
             int i;
             int j;
@@ -212,7 +217,7 @@ namespace SlidePuzzleTest
 
 
             Assert.IsTrue(game.board != null);
-            Assert.IsTrue(game.Finishedboard != null);
+            Assert.IsTrue(game.GoalStateboard != null);
 
 
             int[,] customBoardShuffle = new int[,]
@@ -227,8 +232,8 @@ namespace SlidePuzzleTest
 
             Assert.IsTrue(game.board.GetUpperBound(0) == 3);
             Assert.IsTrue(game.board.GetUpperBound(1) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(0) == 3);
-            Assert.IsTrue(game.Finishedboard.GetUpperBound(1) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(0) == 3);
+            Assert.IsTrue(game.GoalStateboard.GetUpperBound(1) == 3);
             Assert.IsFalse(game.IsInFinishedPosition);
             int i;
             int j;

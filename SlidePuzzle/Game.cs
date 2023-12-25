@@ -11,12 +11,14 @@ namespace SlidePuzzle
     public class Game
     {
         public int[,] board {  get; private set; }
-        public int[,] Finishedboard { get; private set; }
+        public int[,] GoalStateboard { get; private set; } 
         public int RowSize { get; private set; }
         public int ColSize { get; private set; }
         Dictionary<int, Position> DicPositionFromNumber = new Dictionary<int, Position>();
         Dictionary<String, int> DicNumberFromPosition = new Dictionary<String, int>();
-        Position PositionZero  = Position.Empty;
+
+        //The cell that can move must be the neighbor of the number zero
+        public Position PositionOfNumberZero { get; private set; } = Position.Empty;
 
         public enum GameStateEnum
         {
@@ -58,7 +60,7 @@ namespace SlidePuzzle
         public Game(int RowSize, int ColSize,IBoardUI UI)
         {
             board = new int[RowSize, ColSize];
-            Finishedboard = new int[RowSize, ColSize];
+            GoalStateboard = new int[RowSize, ColSize];
 
             this.RowSize = RowSize;
             this.ColSize = ColSize;
@@ -90,35 +92,24 @@ namespace SlidePuzzle
                 P.Row < RowSize &&
                 P.Column  >= 0 &&
                 P.Column  < ColSize;
-        private List<Position> _listPosition = null;
-        private List<Position> listPosition
-        {
-            get
-            {
-                if(_listPosition == null)
-                {
-                    _listPosition = new List<Position>();
-                    Position positionUp = new Position(PositionZero.Row - 1, PositionZero.Column);
-                    Position positionDown = new Position(PositionZero.Row, PositionZero.Column);
-                    Position positionLeft = new Position(PositionZero.Row, PositionZero.Column - 1);
-                    Position positionRight = new Position(PositionZero.Row, PositionZero.Column + 1);
-                    //List<Position> listPoint = new List<Position>();
-                    _listPosition.Add(positionUp);
-                    _listPosition.Add(positionDown);
-                    _listPosition.Add(positionLeft);
-                    _listPosition.Add(positionRight);
-                }
-                return _listPosition;
-            }
-        }
+     
+
         private List<int> GetTileAvilable()
         {
-            
+            List<Position> listPositionNextoNumberZero = new List<Position>();
             List<int> listResult = new List<int>();
 
-
+            Position positionUp = new Position(PositionOfNumberZero.Row - 1, PositionOfNumberZero.Column);
+            Position positionDown = new Position(PositionOfNumberZero.Row + 1, PositionOfNumberZero.Column);
+            Position positionLeft = new Position(PositionOfNumberZero.Row, PositionOfNumberZero.Column - 1);
+            Position positionRight = new Position(PositionOfNumberZero.Row, PositionOfNumberZero.Column + 1);
+            //List<Position> listPoint = new List<Position>();
+            listPositionNextoNumberZero.Add(positionUp);
+            listPositionNextoNumberZero.Add(positionDown);
+            listPositionNextoNumberZero.Add(positionLeft);
+            listPositionNextoNumberZero.Add(positionRight);
             //listPosition.ForEach (x=> if(IsPositionInRange (x)) listResult.Add(DicNumberFromPosition[poi])  )
-            foreach (Position poi in listPosition )
+            foreach (Position poi in listPositionNextoNumberZero )
             {
                 if (!IsPositionInRange(poi))
                 {
@@ -140,25 +131,25 @@ namespace SlidePuzzle
             int i;
             int j;
 
-            if (FromPoint.Column  + 1 == PositionZero.Column  &&
-                FromPoint.Row  == PositionZero.Row )
+            if (FromPoint.Column  + 1 == PositionOfNumberZero.Column  &&
+                FromPoint.Row  == PositionOfNumberZero.Row )
             {
                 return DirectionEnum.Right;
             }
-            if (FromPoint.Column  == PositionZero.Column  &&
-                FromPoint.Row  + 1 == PositionZero.Row )
+            if (FromPoint.Column  == PositionOfNumberZero.Column  &&
+                FromPoint.Row  + 1 == PositionOfNumberZero.Row )
             {
                 return DirectionEnum.Down;
             }
 
-            if (FromPoint.Column  - 1 == PositionZero.Column  &&
-                FromPoint.Row  == PositionZero.Row)
+            if (FromPoint.Column  - 1 == PositionOfNumberZero.Column  &&
+                FromPoint.Row  == PositionOfNumberZero.Row)
             {
                 return DirectionEnum.Left;
             }
 
-            if (FromPoint.Column  == PositionZero.Column &&
-                FromPoint.Row  - 1 == PositionZero.Row )
+            if (FromPoint.Column  == PositionOfNumberZero.Column &&
+                FromPoint.Row  - 1 == PositionOfNumberZero.Row )
             {
                 return DirectionEnum.Up;
             }
@@ -176,7 +167,25 @@ namespace SlidePuzzle
                 throw new Exception("If isNeedtoShuffle is false, the caller need to send customerBoardShuffle");
             }
 
+            int i;
+            int j;
+            for (i = 0; i < RowSize; i++)
+            {
+                for (j = 0; j < ColSize; j++)
+                {
+                    int Value = customerBoardShuffle [i,j];
+                    SetBoardValue(new Position(i, j), Value);
+                }
+            }
+            /*
+            PositionOfNumberZero = new Position(RowSize - 1, ColSize - 1);
+
+            Finishedboard[PositionOfNumberZero.Row, PositionOfNumberZero.Column] = 0;
+            SetBoardValue(PositionOfNumberZero, 0);
             this.board = (int[,])customerBoardShuffle.Clone();
+            */
+           // this.PositionOfNumberZero.Row = 5;
+
             this.GameState = GameStateEnum.Running;
         }
         public void StartWithAutomaticShuffle()
@@ -246,15 +255,15 @@ namespace SlidePuzzle
                 {
                     int Value = (i * RowSize) + (j + 1);
                     SetBoardValue(new Position(i,j),Value);
-                    Finishedboard[i, j] = Value;
+                    GoalStateboard[i, j] = Value;
 
                 }
             }
 
-            PositionZero = new Position(RowSize - 1, ColSize - 1);
+            PositionOfNumberZero = new Position(RowSize - 1, ColSize - 1);
             
-            Finishedboard[PositionZero.Row , PositionZero.Column] = 0;
-            SetBoardValue(PositionZero, 0);
+            GoalStateboard[PositionOfNumberZero.Row , PositionOfNumberZero.Column] = 0;
+            SetBoardValue(PositionOfNumberZero, 0);
 
             ui.Initial(this);
             isInitialed = true;
@@ -270,14 +279,7 @@ namespace SlidePuzzle
             // throw new NotImplementedException();
 
             MoveCell(TileNumber, isPerformAnimation:true);
-            if (this.IsInFinishedPosition)
-            {
-                GameState = GameStateEnum.Stop;
-                if(Won!=null)
-                {
-                    Won(this, new EventArgs());
-                }
-            }
+            
          
         }
 
@@ -300,7 +302,7 @@ namespace SlidePuzzle
 
             if (Value == 0)
             {
-                PositionZero = position;
+                PositionOfNumberZero = position;
             }
 
         }
@@ -383,7 +385,7 @@ namespace SlidePuzzle
                 {
                     for(j=0;j<ColSize;j++)
                     {
-                        if(Finishedboard [i,j] !=
+                        if(GoalStateboard [i,j] !=
                             board[i, j])
                         {
                             return false;
@@ -413,6 +415,14 @@ namespace SlidePuzzle
             ui.MoveTile(FromPosition, ToPosition, isPerformAnimation);
             MoveTile(FromPosition, ToPosition);
 
+            if (this.IsInFinishedPosition)
+            {
+                GameState = GameStateEnum.Stop;
+                if (Won != null)
+                {
+                    Won(this, new EventArgs());
+                }
+            }
 
         }
         /*
