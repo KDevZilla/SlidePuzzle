@@ -19,59 +19,15 @@ namespace SlidePuzzle
         }
         Game game = null;
         UI.IBoardUI ui = null;
-        /*
-        int RowSize = 5;
-        int ColSize = 5;
-        */
-        const int BoardHeight = 600;
-        const int BoardWidth = 600;
-        /*
-        int RowSize
-        {
-            get
-            {
-                if(this.toolStripMenuItemBoardSize3.Checked )
-                {
-                    return 3;
-                }
-                if (this.toolStripMenuItemBoardSize4.Checked)
-                {
-                    return 4;
-                }
-                if (this.toolStripMenuItemBoardSize5.Checked)
-                {
-                    return 5;
-                }
-                return 4;
-            }
-        }
-        */
-        /*
-        int ColSize
-        {
-            get
-            {
-                if (this.toolStripMenuItemBoardSize3.Checked)
-                {
-                    return 3;
-                }
-                if (this.toolStripMenuItemBoardSize4.Checked)
-                {
-                    return 4;
-                }
-                if (this.toolStripMenuItemBoardSize5.Checked)
-                {
-                    return 5;
-                }
-                return 4;
-            }
-        }
-        */
+
+     //   const int BoardHeight = 600;
+     //   const int BoardWidth = 600;
+  
         private void NewGame(Configuration con)
         {
-            NewGame(con.RowSize, con.ColSize, con.IsUseImage, con.SelectedImageFilePath);
+            NewGame(con.RowSize, con.ColSize, con.IsUseImage, con.SelectedImageFilePath,con.BoradHeight ,con.BoardWidth );
         }
-        private void NewGame(int rowSize,int columnSize, Boolean isUseImage,String imageFilePath)
+        private void NewGame(int rowSize,int columnSize, Boolean isUseImage,String imageFilePath, int boardHeight, int boardWidth)
         {
 
             string UIControlName = "BoardUI";
@@ -93,22 +49,16 @@ namespace SlidePuzzle
 
 
             }
-            var image = imageFilePath != ""
+            var image = (isUseImage &&  imageFilePath != "")
                 ? Image.FromFile(imageFilePath)
                 : null;
 
 
            
             
-            ui = new UI.BoardUI(rowSize, columnSize, BoardHeight, BoardWidth, image);
+            ui = new UI.BoardUI(rowSize, columnSize, boardHeight, boardWidth, image);
             ui.IsShowNumberOverLay = true;
-           // ui.BoardImage = Image.FromFile(@"D:\Krirk\Pictures\From_ACER2\3503_gta_iv_art.jpg");
-           /*
-            if(!string.IsNullOrEmpty ( Configuration.Instance.SelectedImageFilePath))
-            {
-                ui.BoardImage = Image.FromFile(Configuration.Instance.SelectedImageFilePath);
-            }
-            */
+
             BoardUI b = (BoardUI)ui;
             b.Name = UIControlName;
             b.lblTemplate = this.lblTemplate;
@@ -122,8 +72,17 @@ namespace SlidePuzzle
             game = new Game(rowSize , columnSize , ui);
             game.Won -= Game_Won;
             game.Won += Game_Won;
+        
+            game.PropertyChanged += (o, e2) =>
+            {
+               if(e2.PropertyName.Equals("NoofMoves"))
+                {
+                    this.lblNumberofMoves.Text = game.NoofMoves.ToString ();
+                }
+            };
             game.Initial();
             game.StartWithAutomaticShuffle();
+
 
 
         }
@@ -155,7 +114,9 @@ namespace SlidePuzzle
             NewGame(Configuration.Instance.RowSize ,
                 Configuration.Instance.ColSize ,
                 Configuration.Instance.IsUseImage , 
-                Configuration.Instance.SelectedImageFilePath );
+                Configuration.Instance.SelectedImageFilePath,
+                Configuration.Instance.BoradHeight ,
+                Configuration.Instance.BoardWidth);
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -213,6 +174,10 @@ namespace SlidePuzzle
         }
         private void ToolStripMenuItemNewGame_Click(object sender, EventArgs e)
         {
+            FormChooseGame.IsUseImage = Configuration.Instance.IsUseImage;
+            FormChooseGame.RowSize = Configuration.Instance.RowSize;
+            FormChooseGame.ColSize = FormChooseGame.RowSize;
+            FormChooseGame.SelectedFileName = Configuration.Instance.SelectedImageFilePath;
 
             FormChooseGame.ShowDialog(this);
             if(FormChooseGame.DialogResult != DialogResult.OK)
@@ -228,7 +193,7 @@ namespace SlidePuzzle
             Configuration.Instance.ColSize = FormChooseGame.ColSize;
 
             //   this.PnlThumnail =formChooseGame
-
+            Configuration.SaveInstance();
             NewGame(Configuration.Instance);
         }
 
@@ -301,6 +266,12 @@ namespace SlidePuzzle
         {
             Form1 f = new Form1();
             f.Show();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            game.StartWithAutomaticShuffle();
 
         }
     }

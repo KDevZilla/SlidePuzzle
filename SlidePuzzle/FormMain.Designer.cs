@@ -41,12 +41,11 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.form1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblNumberofMoves = new System.Windows.Forms.Label();
+            this.lblTime = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -69,8 +68,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.form1ToolStripMenuItem});
+            this.newToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(890, 24);
@@ -161,22 +159,16 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // form1ToolStripMenuItem
-            // 
-            this.form1ToolStripMenuItem.Name = "form1ToolStripMenuItem";
-            this.form1ToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.form1ToolStripMenuItem.Text = "Form1";
-            this.form1ToolStripMenuItem.Click += new System.EventHandler(this.form1ToolStripMenuItem_Click);
-            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(130, 167);
+            this.button1.Location = new System.Drawing.Point(95, 203);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 44);
             this.button1.TabIndex = 6;
             this.button1.Text = "Restart";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -202,38 +194,38 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Time";
             // 
-            // label4
+            // lblNumberofMoves
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(206, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 37);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "48";
+            this.lblNumberofMoves.AutoSize = true;
+            this.lblNumberofMoves.BackColor = System.Drawing.Color.Transparent;
+            this.lblNumberofMoves.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberofMoves.ForeColor = System.Drawing.Color.White;
+            this.lblNumberofMoves.Location = new System.Drawing.Point(206, 28);
+            this.lblNumberofMoves.Name = "lblNumberofMoves";
+            this.lblNumberofMoves.Size = new System.Drawing.Size(47, 37);
+            this.lblNumberofMoves.TabIndex = 9;
+            this.lblNumberofMoves.Text = "48";
             // 
-            // label5
+            // lblTime
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(149, 81);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 37);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "0:01:01";
+            this.lblTime.AutoSize = true;
+            this.lblTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblTime.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.ForeColor = System.Drawing.Color.White;
+            this.lblTime.Location = new System.Drawing.Point(134, 81);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(119, 37);
+            this.lblTime.TabIndex = 10;
+            this.lblTime.Text = "00:00:00";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.lblTime);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.lblNumberofMoves);
             this.panel1.Location = new System.Drawing.Point(600, 25);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(289, 616);
@@ -275,12 +267,11 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem form1ToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblNumberofMoves;
+        private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Panel panel1;
     }
 }

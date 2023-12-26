@@ -197,7 +197,16 @@ namespace SlidePuzzle.UI
             this.SelectedImageFileName = "";
 
         }
-
+        public void SelecteImageByFileName(String fileName)
+        {
+            listLabelDisplayImage.ForEach(x =>
+            {
+                if(x.PictureFilePath.Equals(fileName))
+                {
+                    Pic_BeingSelected(x, new EventArgs());
+                }
+            });
+        }
         private void Pic_BeingSelected(object sender, EventArgs e)
         {
 

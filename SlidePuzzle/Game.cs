@@ -1,6 +1,7 @@
 ﻿using SlidePuzzle.UI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Windows.Forms;
 
 namespace SlidePuzzle
 {
-    public class Game
+    public class Game : INotifyPropertyChanged
     {
         public int boardValue(Position position)
         {
@@ -165,6 +166,7 @@ namespace SlidePuzzle
         Random R = new Random();
         public void StartWithCustomBoard(int[,] customerBoardShuffle)
         {
+            NoofMoves = 0;
             if (customerBoardShuffle == null
   || customerBoardShuffle.GetUpperBound(0) != board.GetUpperBound(0)
   || customerBoardShuffle.GetUpperBound(1) != board.GetUpperBound(1))
@@ -195,11 +197,11 @@ namespace SlidePuzzle
         }
         public void StartWithAutomaticShuffle()
         {
-
+           
             GameState = GameStateEnum.Shuffle;
             Shuffle();
             GameState = GameStateEnum.Running;
-
+            NoofMoves = 0;
         }
         public void Shuffle()
         {
@@ -422,6 +424,38 @@ namespace SlidePuzzle
                 return true;
             }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, e);
+            /*
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, e);
+                */
+        }
+        protected void OnPropertyChanged(
+    [System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+       // public event PropertyChangedEventHandler PropertyChanged;
+        private int _NoofMoves = 0;
+        public int NoofMoves {
+            get {
+                return _NoofMoves;
+            }
+            private set
+            {
+                if(value != _NoofMoves)
+                {
+                    _NoofMoves = value;
+                    OnPropertyChanged("NoofMoves");
+                }
+                
+            }
+        }
+        
         public void MoveCell(int index,Boolean isPerformAnimation)
         {
             if(GameState == GameStateEnum.Stop )
@@ -434,7 +468,7 @@ namespace SlidePuzzle
             {
                 return;
             }
-
+            NoofMoves++;
             Position FromPosition = DicPositionFromNumber[index];
             Position ToPosition = GetNeibhourPosition(FromPosition, MovetoEmptyDirection);
 

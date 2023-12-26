@@ -52,7 +52,11 @@ namespace SlidePuzzle
             this.KeyPreview = true;
             this.Text = pnlThumbnail1.Height + "," + this.pnlThumbnail1.Width;
 
-            this.chkUseImage.CheckedChanged += (o, e2) => this.pnlThumbnail1.Enabled = chkUseImage.Checked;
+            this.chkUseImage.CheckedChanged += (o, e2) =>
+            {
+                this.pnlThumbnail1.Enabled = chkUseImage.Checked;
+                this.btnAddNewImage.Enabled = chkUseImage.Checked;
+            };
             this.btnAddNewImage.Click += btnAddNewImage_Click;
             cboNumberofBlock.SelectedIndex = 0;
 
@@ -63,9 +67,27 @@ namespace SlidePuzzle
             {
                 throw new Exception($"{ImageFilePath} is blank, please set it first");
             }
+            this.chkUseImage.Checked = this.IsUseImage;
+            switch (this.RowSize)
+            {
+                case 3:
+                    this.cboNumberofBlock.SelectedIndex = 0;
+                    break;
+                case 4:
+                    this.cboNumberofBlock.SelectedIndex = 1;
+                    break;
+                case 5:
+                    this.cboNumberofBlock.SelectedIndex = 2;
+                    break;
+            }
+
+            if(this.SelectedFileName != "")
+            {
+                pnlThumbnail1.SelecteImageByFileName(this.SelectedFileName );
+            }
+          
 
 
-         
         }
         // To let caller access it to that the caller can keep it it cache
         /*
@@ -77,8 +99,8 @@ namespace SlidePuzzle
         */
         private void PnlDis_ItemDouble_Clicked(object sender, EventArgs e)
         {
-            String fileName = ((UI.labelDisplayPicture.StringEventArgs)e).Value;
-            MessageBox.Show(fileName);
+           // String fileName = ((UI.labelDisplayPicture.StringEventArgs)e).Value;
+           // MessageBox.Show(fileName);
 
             //throw new NotImplementedException();
         }
@@ -162,11 +184,11 @@ namespace SlidePuzzle
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-        public Boolean IsUseImage { get; private set; } = true;
-        public string SelectedFileName { get; private set; } = "";
+        public Boolean IsUseImage { get;  set; } = true;
+        public string SelectedFileName { get;  set; } = "";
         public int NumberofSlide { get; private set; } = 15;
-        public int RowSize { get; private set; } = 4;
-        public int ColSize { get; private set; } = 4;
+        public int RowSize { get;  set; } = 4;
+        public int ColSize { get;  set; } = 4;
 
         private void btnOK_Click(object sender, EventArgs e)
         {
