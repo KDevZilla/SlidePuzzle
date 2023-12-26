@@ -11,45 +11,33 @@ namespace SlidePuzzle
     public class SerializeUtility
     {
 
-        public static void SerializeScoreInfos(ScoreInfos sta, String filename)
+        public static void SerializeScoreInfos(ScoreInfos sta, String filename) => Serailze(sta, filename);
+        /*
         {
             //Create the stream to add object into it.  
             Serailze(sta, filename);
         }
-
-        public static void CreateNewScoreFile(String filename)
+        */
+        public static void CreateNewScoreFile(String filename) => Serailze(new ScoreInfos (), filename);
+        /*
         {
             ScoreInfos sta = new ScoreInfos();
             Serailze(sta, filename);
         }
-        public static ScoreInfos DeserializeScore(String filename)
+        */
+        public static ScoreInfos DeserializeScore(String filename) => (ScoreInfos)Deserialize(filename);
+        /*
         {
             object obj = Deserialize(filename);
             ScoreInfos sta = (ScoreInfos)obj;
             return sta;
         }
+        */
+        public static void SerializeConfiguration(Configuration con, String filename) => Serailze(con, filename);
+        public static Boolean IsSerializeConfigurationFileExist(String filename)=> System.IO.File.Exists(filename);
+        public static void CreateNewConfigurationFile(String filename)=> Serailze(new Configuration(), filename);
 
-        public static void SerializeConfiguration(Configuration con, String filename)
-        {
-            //Create the stream to add object into it.  
-            Serailze(con, filename);
-        }
-        public static Boolean IsSerializeConfigurationFileExist(String filename)
-        {
-            return System.IO.File.Exists(filename);
-        }
-        public static void CreateNewConfigurationFile(String filename)
-        {
-            Configuration sta = new Configuration();
-            Serailze(sta, filename);
-        }
-        
-        public static Configuration DeserializeConfigurationFile(String filename)
-        {
-            object obj = Deserialize(filename);
-            Configuration con = (Configuration)obj;
-            return con;
-        }
+        public static Configuration DeserializeConfigurationFile(String filename)=>(Configuration)Deserialize(filename);
         
 
         private static void Serailze(object obj, String filename)
