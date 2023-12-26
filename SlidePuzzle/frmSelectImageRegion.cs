@@ -63,15 +63,19 @@ namespace SlidePuzzle
             this.panel1.Size = new Size(600, 600);
             this.panel1.Top = 1;
             this.panel1.Left = 1;
-           // this.panel1.Anchor = AnchorStyles.Bottom & AnchorStyles.Left;
+            this.panel1.Scroll += (o, e2) =>
+            {
+                pictureBoxMain.Invalidate();
+            };
+
             this.Resize += Form_Resize;
-            //this.pictureBoxGray.Visible = false;
+
 
         }
 
         private void Form_Resize(object sender, EventArgs e)
         {
-            //  throw new NotImplementedException();
+
             try
             {
                 this.panel1.Height = this.btnSave.Top - 2;
@@ -96,11 +100,6 @@ namespace SlidePuzzle
                 return;
             }
             Bitmap B = new Bitmap(cropWidth, cropHeight);
-           
-            // pictureBoxTemp.CreateGraphics().Clip = new Region(Re);
-
-            //   pictureBoxTemp.DrawToBitmap( (Bitmap)pictureBox1.BackgroundImage, Re);
-
 
             e.Graphics.DrawImage(pictureBoxTemp.Image , RecDrawArea, RecDrawArea, GraphicsUnit.Pixel);
             e.Graphics.DrawRectangle(cropPen, RecDrawArea);
@@ -137,9 +136,7 @@ namespace SlidePuzzle
             RecDrawArea = new Rectangle(cropX, cropY, cropWidth, cropHeight);
 
             pictureBoxMain.Invalidate();
-          //  this.Text = e.X.ToString() + "   " + cropX.ToString();
 
-                //g.DrawImage(sourceBitmap, targetArea, sourceArea, GraphicsUnit.Pixel);
         }
         Boolean IsMouseDown = false ;
         private void pictureBoxMain_MouseDown(object sender, MouseEventArgs e)
@@ -150,7 +147,7 @@ namespace SlidePuzzle
             }
             IsMouseDown = true;  
         }
-
+        //https://stackoverflow.com/questions/2265910/convert-an-image-to-grayscale
         public Bitmap ChangeImagetoGrayScale(Bitmap pOrignal)
         {
             Bitmap newBitmap = new Bitmap(pOrignal.Width, pOrignal.Height);
@@ -174,20 +171,7 @@ namespace SlidePuzzle
             return newBitmap ;
 
         }
-        private void SavePicture()
-        {
 
-
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-           // SavePicture();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            SavePicture();
-        }
 
         private void frmSelectImageRegion_Load(object sender, EventArgs e)
         {

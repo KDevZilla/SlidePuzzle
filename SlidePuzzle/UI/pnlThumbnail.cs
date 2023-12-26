@@ -40,7 +40,7 @@ namespace SlidePuzzle.UI
         public List<labelDisplayPicture> listLabelDisplayImage { get; private set; } = new List<labelDisplayPicture>();
 
 
-        /*In the future, these value will be allowed to configure from the caller*/
+        /*In the future, these private values will be allowed to configure from the caller*/
         private Color NonSelectedLabelBackColor => Color.White;
         private Color SelectedLabelBackColor => Color.FromArgb(204, 232, 255);
         private Color MouseHoverBackColor => Color.FromArgb(229, 243, 255);
@@ -50,6 +50,9 @@ namespace SlidePuzzle.UI
         private int tileHeight { get; set; } = 115;
         private int spaceBetweenRowPixel { get; set; } = 10;
         private int spaceBetweenColumnPixel { get; set; } = 10;
+
+
+
         public String SelectedImageFileName { get; set; } = "";
 
         public static string[] GetFiles(string path, string searchPattern, SearchOption searchOption)

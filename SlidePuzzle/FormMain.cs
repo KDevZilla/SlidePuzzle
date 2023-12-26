@@ -23,8 +23,9 @@ namespace SlidePuzzle
         int RowSize = 5;
         int ColSize = 5;
         */
-        int BoardHeight = 600;
-        int BoardWidth = 600;
+        const int BoardHeight = 600;
+        const int BoardWidth = 600;
+        /*
         int RowSize
         {
             get
@@ -44,7 +45,8 @@ namespace SlidePuzzle
                 return 4;
             }
         }
-
+        */
+        /*
         int ColSize
         {
             get
@@ -64,7 +66,12 @@ namespace SlidePuzzle
                 return 4;
             }
         }
-        private void NewGame()
+        */
+        private void NewGame(Configuration con)
+        {
+            NewGame(con.RowSize, con.ColSize, con.IsUseImage, con.SelectedImageFilePath);
+        }
+        private void NewGame(int rowSize,int columnSize, Boolean isUseImage,String imageFilePath)
         {
 
             string UIControlName = "BoardUI";
@@ -86,8 +93,14 @@ namespace SlidePuzzle
 
 
             }
+            var image = imageFilePath != ""
+                ? Image.FromFile(imageFilePath)
+                : null;
 
-            ui = new UI.BoardUI(RowSize, ColSize,600,600);
+
+           
+            
+            ui = new UI.BoardUI(rowSize, columnSize, BoardHeight, BoardWidth, image);
             ui.IsShowNumberOverLay = true;
            // ui.BoardImage = Image.FromFile(@"D:\Krirk\Pictures\From_ACER2\3503_gta_iv_art.jpg");
            /*
@@ -103,9 +116,10 @@ namespace SlidePuzzle
             b.BorderStyle = BorderStyle.FixedSingle;
             this.Controls.Add(b);
             b.Top = this.menuStrip1.Height;
+          
 
 
-            game = new Game(RowSize , ColSize , ui);
+            game = new Game(rowSize , columnSize , ui);
             game.Won -= Game_Won;
             game.Won += Game_Won;
             game.Initial();
@@ -116,17 +130,19 @@ namespace SlidePuzzle
 
         private void Form2_Load(object sender, EventArgs e)
         {
+
+            /*
             ui = new UI.BoardUI(RowSize ,ColSize,BoardHeight ,BoardWidth );
             ui.IsShowNumberOverLay = true;
             //ui.BoardImage = Image.FromFile(@"D:\Krirk\Pictures\From_ACER2\3503_gta_iv_art.jpg");
-            this.lblTemplate.BackColor = Color.FromArgb(48, 48, 48);
-
+          
             BoardUI b = (BoardUI)ui;
             b.Name = "BoardUI";
             b.lblTemplate = this.lblTemplate;
             b.Visible = true;
             b.BorderStyle = BorderStyle.FixedSingle;
             this.Controls.Add(b);
+            */
 
             this.toolStripMenuItemBoardSize3.Click -= toolStripMenuItemBoardChoose;
             this.toolStripMenuItemBoardSize4.Click -= toolStripMenuItemBoardChoose;
@@ -134,8 +150,12 @@ namespace SlidePuzzle
             this.toolStripMenuItemBoardSize3.Click += toolStripMenuItemBoardChoose;
             this.toolStripMenuItemBoardSize4.Click += toolStripMenuItemBoardChoose;
             this.toolStripMenuItemBoardSize5.Click += toolStripMenuItemBoardChoose;
+            this.lblTemplate.BackColor = Color.FromArgb(48, 48, 48);
 
-            NewGame();
+            NewGame(Configuration.Instance.RowSize ,
+                Configuration.Instance.ColSize ,
+                Configuration.Instance.IsUseImage , 
+                Configuration.Instance.SelectedImageFilePath );
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -175,14 +195,14 @@ namespace SlidePuzzle
 
         private ImageCached imageCached = new ImageCached();
         //  private pnlThumbnail PnlThumnail = null;
-        private FormTestPnlDisplay _FormChooseGame = null;
-        private FormTestPnlDisplay FormChooseGame
+        private FormNewGame _FormChooseGame = null;
+        private FormNewGame FormChooseGame
         {
             get
             {
                 if(_FormChooseGame == null)
                 {
-                    _FormChooseGame = new FormTestPnlDisplay();
+                    _FormChooseGame = new FormNewGame();
                     _FormChooseGame.ImageFilePath = FileUtility.ImageBoardPath;
                     _FormChooseGame.StartPosition = FormStartPosition.CenterParent;
                     _FormChooseGame.imageCached = this.imageCached;
@@ -195,26 +215,24 @@ namespace SlidePuzzle
         {
 
             FormChooseGame.ShowDialog(this);
-           
-         //   this.PnlThumnail =formChooseGame
-            NewGame();
+            if(FormChooseGame.DialogResult != DialogResult.OK)
+            {
+                return;
+            }
+            if(FormChooseGame.SelectedFileName != "")
+            {
+                Configuration.Instance.SelectedImageFilePath = FormChooseGame.SelectedFileName;
+            }
+            Configuration.Instance.IsUseImage = FormChooseGame.IsUseImage;
+            Configuration.Instance.RowSize = FormChooseGame.RowSize;
+            Configuration.Instance.ColSize = FormChooseGame.ColSize;
+
+            //   this.PnlThumnail =formChooseGame
+
+            NewGame(Configuration.Instance);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int i;
-          //  RowSize = 4;
-          //  ColSize = 4;
-            NewGame();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-           // RowSize = 5;
-           // ColSize = 5;
-            NewGame();
-
-        }
+       
 
         private void toolStripMenuItemBoardChoose(object sender, EventArgs e)
         {
@@ -248,8 +266,8 @@ namespace SlidePuzzle
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FormBoardConfiguration f = new FormBoardConfiguration();
-            f.BoardWidth = this.BoardWidth;
-            f.BoardHeight = this.BoardHeight;
+         //   f.BoardWidth = this.BoardWidth;
+         //   f.BoardHeight = this.BoardHeight;
             f.ShowDialog();
 
             if(f.SelectedFilePath==null ||
@@ -277,6 +295,13 @@ namespace SlidePuzzle
             f.PlayerCurrentScore = -1;
             f.StartPosition = FormStartPosition.CenterParent;
             f.ShowDialog();
+        }
+
+        private void form1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1 f = new Form1();
+            f.Show();
+
         }
     }
 }

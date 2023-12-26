@@ -1,6 +1,6 @@
 ﻿namespace SlidePuzzle
 {
-    partial class FormTestPnlDisplay
+    partial class FormNewGame
     {
         /// <summary>
         /// Required designer variable.

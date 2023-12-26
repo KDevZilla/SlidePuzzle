@@ -13,7 +13,7 @@ namespace SlidePuzzle.UI
         event TiltClickHandler TiltClick;
         void MoveTile(Position fromPosition, Position toPosition, Boolean isPerformAnimation);
         Boolean IsShowNumberOverLay { get; set; }
-        Image BoardImage { get; set; }
+        Image BoardImage { get;  }
         void Initial(Game game);
         void Clear();
     }

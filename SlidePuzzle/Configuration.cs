@@ -14,20 +14,18 @@ namespace SlidePuzzle
         public Color TileForeColor { get; set; }
         public float TileFontSize { get; set; }
         public bool IsShowNumberOverlay { get; set; }
+        public bool IsUseImage { get; set; }
         public int RowSize { get; set; }
         public int ColSize { get; set; }
-        public string SelectedImageFilePath { get; set; }
+        public string SelectedImageFilePath { get; set; } = "";
 
         public int BoardWidth { get; private set; }
         public int BoradHeight { get; private set; }
         private static  Configuration _Instance = null;
         private static readonly object _lock = new object();
-
-        private static void LoadConfiguration()
+        private static void LoadConfiguration(String configurationFileName)
         {
-            String ConfigurationSerialzeFilePath = FileUtility.ConfigurationSeralizePath;
-
-            if(!SerializeUtility.IsSerializeConfigurationFileExist(ConfigurationSerialzeFilePath))
+            if (!SerializeUtility.IsSerializeConfigurationFileExist(configurationFileName))
             {
                 _Instance = new Configuration();
                 _Instance.BoardWidth = 600;
@@ -38,12 +36,18 @@ namespace SlidePuzzle
                 _Instance.TileBackColor = Color.Silver;
                 _Instance.TileForeColor = Color.Black;
                 _Instance.IsShowNumberOverlay = true;
-                SerializeUtility.SerializeConfiguration(_Instance, ConfigurationSerialzeFilePath);
+                SerializeUtility.SerializeConfiguration(_Instance, configurationFileName);
                 return;
             }
 
-            _Instance= SerializeUtility.DeserializeConfigurationFile (ConfigurationSerialzeFilePath);
+            _Instance = SerializeUtility.DeserializeConfigurationFile(configurationFileName);
 
+        }
+        private static void LoadConfiguration()
+        {
+            String ConfigurationSerialzeFilePath = FileUtility.ConfigurationSeralizePath;
+            LoadConfiguration(ConfigurationSerialzeFilePath);
+           
 
             
 

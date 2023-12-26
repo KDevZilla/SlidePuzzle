@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 namespace SlidePuzzle
 {
-    public partial class FormTestPnlDisplay : Form
+    public partial class FormNewGame : Form
     {
-        public FormTestPnlDisplay()
+        public FormNewGame()
         {
             InitializeComponent();
         }
@@ -54,6 +54,8 @@ namespace SlidePuzzle
 
             this.chkUseImage.CheckedChanged += (o, e2) => this.pnlThumbnail1.Enabled = chkUseImage.Checked;
             this.btnAddNewImage.Click += btnAddNewImage_Click;
+            cboNumberofBlock.SelectedIndex = 0;
+
         }
         private void FormTestPnlDisplay_Load(object sender, EventArgs e)
         {
@@ -132,10 +134,11 @@ namespace SlidePuzzle
             {
                 return;
             }
-            int BoardHeight = 400;
-            int BoardWidth = 400;
+            //    int BoardHeight = 400;
+            //    int BoardWidth = 400;
+             
             frmSelectRegion F = new frmSelectRegion();
-            F.SetImageInfo(opf.FileName, BoardHeight, BoardWidth);
+            F.SetImageInfo(opf.FileName, Configuration.Instance.BoradHeight, Configuration.Instance.BoardWidth );
             F.StartPosition = FormStartPosition.CenterParent;
             DialogResult result = F.ShowDialog(this);
             if (result != DialogResult.OK)
@@ -162,6 +165,8 @@ namespace SlidePuzzle
         public Boolean IsUseImage { get; private set; } = true;
         public string SelectedFileName { get; private set; } = "";
         public int NumberofSlide { get; private set; } = 15;
+        public int RowSize { get; private set; } = 4;
+        public int ColSize { get; private set; } = 4;
 
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -175,6 +180,26 @@ namespace SlidePuzzle
                 : "";
 
             this.NumberofSlide = int.Parse(this.cboNumberofBlock.Items[this.cboNumberofBlock.SelectedIndex].ToString());
+
+            //
+            //RowSize = this.cboNumberofBlock.SelectedIndex + 3;
+
+            switch (NumberofSlide)
+            {
+                case 8:
+                    RowSize = 3;
+                    break;
+                    
+                case 15:
+                    RowSize = 4;
+                    break;
+                case 24:
+                    RowSize = 5;
+                    break;
+                default:
+                    throw new Exception($"{NumberofSlide} is invalid value of Number of slide, the valid value must be 8, 15, 24");
+            }
+            this.ColSize = RowSize;
             this.Close();
         }
     }

@@ -28,7 +28,7 @@ namespace SlidePuzzle.UI
         
         public int BoardWidth { get; private set; }
         public int BoardHeight { get; private set; }
-        public BoardUI (int RowSize, int ColSize, int BoardHeight, int BoardWidth)
+        public BoardUI (int RowSize, int ColSize, int BoardHeight, int BoardWidth, Image boardImage)
         {
             this.RowSize = RowSize;
             this.ColSize = ColSize;
@@ -39,7 +39,7 @@ namespace SlidePuzzle.UI
             TileHeight = BoardHeight / RowSize;
             this.Width = this.BoardWidth;
             this.Height = this.BoardHeight;
-
+            this.BoardImage = boardImage;
         }
 
         public void Initial(Game game)
@@ -48,12 +48,6 @@ namespace SlidePuzzle.UI
             {
                 throw new Exception("Please set lblTemplate property first");
             }
-           // lblTemplate = plblTemplate;
-            int i;
-            int j;
-          //  board = new int[RowSize, RowSize];
-          //  this.Height = lblTemplate.Height * RowSize;
-          //  this.Width = lblTemplate.Width * ColSize;
             this.game = game;
             CreateTile();
 
@@ -115,17 +109,12 @@ namespace SlidePuzzle.UI
         public delegate void TiltClickHandler(int TileNumber);
         public event TiltClickHandler TiltClick; 
 
-       // public void MoveUp()
+
         private void labelClick(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
             Label L = (Label)sender;
             int NumberClicked = int.Parse(L.Tag.ToString());
-            //   MoveCell(index);
             TiltClick?.Invoke(NumberClicked);
-
-       
-            
         }
 
         public Image TileImage { get; set; }
