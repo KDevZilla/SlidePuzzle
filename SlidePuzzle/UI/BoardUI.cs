@@ -14,21 +14,6 @@ namespace SlidePuzzle.UI
         public int ColSize { get; private set; }
 
         Dictionary<int, Label> DicTilt = new Dictionary<int, Label>();
-        /*
-        event TiltClickHandler IBoardUI.TiltClick
-        {
-            add
-            {
-                throw new NotImplementedException();
-            }
-
-            remove
-            {
-                throw new NotImplementedException();
-            }
-        }
-        */
-
         private int ConvertFromTableToLiner(int x, int y, int pRowSize)
         {
             return (y * pRowSize) + x + 1;
@@ -78,7 +63,7 @@ namespace SlidePuzzle.UI
         private Boolean IsRenderImage => BoardImage != null;
         int TileWidth = 0;
         int TileHeight = 0;
-
+        
         private void CreateTile()
         {
             int i = 0;
@@ -129,6 +114,8 @@ namespace SlidePuzzle.UI
         }
         public delegate void TiltClickHandler(int TileNumber);
         public event TiltClickHandler TiltClick; 
+
+       // public void MoveUp()
         private void labelClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

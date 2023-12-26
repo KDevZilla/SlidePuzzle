@@ -12,7 +12,63 @@ namespace SlidePuzzleTest
     [TestClass]
     public class GameTestPrivateMethod 
     {
-       
+        [TestMethod]
+        public void GetNextToZeroNumberPostion()
+        {
+
+            Game game = new Game(4, 4, new SlidePuzzle.UI.MockUI());
+            game.Initial();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+            Assert.IsTrue(game.IsInFinishedPosition);
+
+
+            Assert.IsTrue(game.board != null);
+            Assert.IsTrue(game.GoalStateboard != null);
+
+
+            int[,] customBoardShuffle = new int[,]
+            {
+                {1,2,3,4 },
+                {5,6,7,8 },
+                {9,10,11,12 },
+                {13,14,0,15 }
+            };
+
+            game.StartWithCustomBoard(customerBoardShuffle: customBoardShuffle);
+
+            var keyDirection = System.Windows.Forms.Keys.Left;
+            var PositionNextToNumberZero = game.CallPrivateMethod<Position>("GetNextToZeroNumberPostionThatCanMoveToDirection", keyDirection);
+            Assert.IsTrue(PositionNextToNumberZero.Row == 3);
+            Assert.IsTrue(PositionNextToNumberZero.Column  == 3);
+            Assert.IsTrue(game.boardValue (PositionNextToNumberZero)==15);
+
+            keyDirection = System.Windows.Forms.Keys.Down;
+            PositionNextToNumberZero = game.CallPrivateMethod<Position>("GetNextToZeroNumberPostionThatCanMoveToDirection", keyDirection);
+            Assert.IsTrue(PositionNextToNumberZero.Row == 2);
+            Assert.IsTrue(PositionNextToNumberZero.Column  == 2);
+            Assert.IsTrue(game.boardValue(PositionNextToNumberZero) == 11);
+
+            keyDirection = System.Windows.Forms.Keys.Right ;
+            PositionNextToNumberZero = game.CallPrivateMethod<Position>("GetNextToZeroNumberPostionThatCanMoveToDirection", keyDirection);
+            Assert.IsTrue(PositionNextToNumberZero.Row == 3);
+            Assert.IsTrue(PositionNextToNumberZero.Column  == 1);
+            Assert.IsTrue(game.boardValue(PositionNextToNumberZero) == 14);
+
+
+            //This function does not check if the return value is in the range.
+            keyDirection = System.Windows.Forms.Keys.Up;
+            PositionNextToNumberZero = game.CallPrivateMethod<Position>("GetNextToZeroNumberPostionThatCanMoveToDirection", keyDirection);
+            Assert.IsTrue(PositionNextToNumberZero.Row == 4);
+            Assert.IsTrue(PositionNextToNumberZero.Column == 2);
+           
+
+            var keyDirectionInvalid = System.Windows.Forms.Keys.A;
+            PositionNextToNumberZero = game.CallPrivateMethod<Position>("GetNextToZeroNumberPostionThatCanMoveToDirection", keyDirectionInvalid);
+            Assert.IsTrue(PositionNextToNumberZero.isEqual (Position.Empty));
+
+
+
+        }
         [TestMethod]
         public void GetTileAvilable()
         {

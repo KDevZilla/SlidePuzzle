@@ -5,11 +5,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SlidePuzzle
 {
     public class Game
     {
+        public int boardValue(Position position)
+        {
+            return board[position.Row, position.Column];
+        }
         public int[,] board {  get; private set; }
         public int[,] GoalStateboard { get; private set; } 
         public int RowSize { get; private set; }
@@ -260,6 +265,56 @@ namespace SlidePuzzle
             isInitialed = true;
         }
         public event EventHandler Won;
+
+        private Position GetNextToZeroNumberPostionThatCanMoveToDirection(System.Windows.Forms.Keys keyDataDirection)
+        {
+            /* if key is down look at Up and vice versa
+             * if key is left look at down and vice versa
+             */
+            var TargetPosition = Position.Empty;
+            switch (keyDataDirection)
+            {
+                case Keys.Down:
+                    TargetPosition = new Position(PositionOfNumberZero.Row - 1, PositionOfNumberZero.Column);
+                    break;
+                case Keys.Up:
+                    TargetPosition =new Position(PositionOfNumberZero.Row + 1, PositionOfNumberZero.Column);
+                    break;
+                case Keys.Right:
+                    TargetPosition =new Position(PositionOfNumberZero.Row, PositionOfNumberZero.Column - 1);
+                    break;
+                case Keys.Left:
+                    TargetPosition =new Position(PositionOfNumberZero.Row, PositionOfNumberZero.Column + 1);
+                    break;
+            }
+            return TargetPosition;
+        }
+        public void SendKeyDirection(System.Windows.Forms.Keys keyData)
+        {
+
+            if (keyData != Keys.Up
+                && keyData != Keys.Down
+                && keyData != Keys.Left
+                && keyData != Keys.Right)
+            {
+                return;
+            }
+            var PositionNextToNumberZero = GetNextToZeroNumberPostionThatCanMoveToDirection(keyData);
+            if(!IsPositionInRange(PositionNextToNumberZero))
+            {
+                return;
+            }
+            try
+            {
+                int tileNumber = boardValue(PositionNextToNumberZero);
+                Ui_TiltClick(tileNumber);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{PositionNextToNumberZero.key}");
+            }
+            //PositionOfNumberZero 
+        }
         private void Ui_TiltClick(int TileNumber)
         {
             if(GameState != GameStateEnum.Running)

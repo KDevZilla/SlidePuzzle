@@ -19,13 +19,15 @@ namespace SlidePuzzle
         private List<UI.pnlThumbnail.ImageInfo> GetImagesFromDirectory(String path)
         {
             string[] extension = { "*.jpeg", "*.jpg" };
-            //string[,] arrFiles = new string()[extension.Length, 0];
+           
             List<String[]> listArrFiles = new List<String[]>();
             extension.ToList().ForEach(x => listArrFiles.Add(Directory.GetFiles(path, x)));
+
             List<UI.pnlThumbnail.ImageInfo> list = new List<UI.pnlThumbnail.ImageInfo>();
+
             listArrFiles.ForEach (x=>x.ToList ().
                                   ForEach (y=> list.Add(new UI.pnlThumbnail.ImageInfo(y))));
-            //arrFiles.ToList().ForEach(x => list.Add(new UI.pnlDisplayPictureItems.ImageInfo(x)));
+           
             return list;
 
         }
@@ -51,7 +53,7 @@ namespace SlidePuzzle
             this.Text = pnlThumbnail1.Height + "," + this.pnlThumbnail1.Width;
 
             this.chkUseImage.CheckedChanged += (o, e2) => this.pnlThumbnail1.Enabled = chkUseImage.Checked;
-
+            this.btnAddNewImage.Click += btnAddNewImage_Click;
         }
         private void FormTestPnlDisplay_Load(object sender, EventArgs e)
         {
@@ -60,17 +62,6 @@ namespace SlidePuzzle
                 throw new Exception($"{ImageFilePath} is blank, please set it first");
             }
 
-            /*
-            pnlDis = new UI.pnlThumbnail()
-            {
-                Visible = true,
-                Top = 12,
-                Left = 12,
-                Height = 300,
-                Width = 682
-
-            };
-            */
 
          
         }

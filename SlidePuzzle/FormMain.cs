@@ -138,7 +138,20 @@ namespace SlidePuzzle
             NewGame();
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
 
+            if (keyData == Keys.Up
+                 || keyData == Keys.Down
+                 || keyData == Keys.Left
+                 || keyData == Keys.Right)
+            {
+                game.SendKeyDirection(keyData);
+                //pnlThumbnail1.MoveSelectedImage((UI.pnlThumbnail.MoveSelectedImageDirection)keyData);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void ToolStripMenuItemBoardSize3_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -170,7 +183,7 @@ namespace SlidePuzzle
                 if(_FormChooseGame == null)
                 {
                     _FormChooseGame = new FormTestPnlDisplay();
-                    _FormChooseGame.ImageFilePath = @"D:\Krirk\KRIRK_Practice\Pictures\From_ACER\";
+                    _FormChooseGame.ImageFilePath = FileUtility.ImageBoardPath;
                     _FormChooseGame.StartPosition = FormStartPosition.CenterParent;
                     _FormChooseGame.imageCached = this.imageCached;
                     _FormChooseGame.InitialControlAndLoadImages();
@@ -225,22 +238,12 @@ namespace SlidePuzzle
 
         private void Game_Won(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+
             MessageBox.Show("Finished");
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            this.button4.Text = "No";
-            if(game.IsInFinishedPosition)
-            {
-                this.button4.Text = "Yes";
-                return;
-            }
-
-            
-        }
+       
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
