@@ -200,7 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1286, 736);
+            this.ClientSize = new System.Drawing.Size(787, 691);
             this.Controls.Add(this.pnlShowScore);
             this.Controls.Add(this.pnlEnterScore);
             this.Controls.Add(this.lblTemplate);

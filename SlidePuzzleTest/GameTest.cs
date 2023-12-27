@@ -161,6 +161,46 @@ namespace SlidePuzzleTest
         }
 
         [TestMethod]
+        public void StartWithAutomaticShuffleTestIfShuffleGoodEnough()
+        {
+            // Test if after she shuffle, the status of game is the still the same as the initial state.
+            Game game = new Game(3, 3, new SlidePuzzle.UI.MockUI());
+            game.Initial();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+            Assert.IsTrue(game.IsInFinishedPosition);
+
+
+            Assert.IsTrue(game.board != null);
+            Assert.IsTrue(game.GoalStateboard != null);
+            int i;
+
+            for (i = 1; i <= 300; i++)
+            {
+                game.StartWithAutomaticShuffle();
+                Assert.IsFalse(game.IsInFinishedPosition);
+            }
+
+
+            game = new Game(4, 4, new SlidePuzzle.UI.MockUI());
+            game.Initial();
+            Assert.IsTrue(game.GameState == Game.GameStateEnum.Stop);
+            Assert.IsTrue(game.IsInFinishedPosition);
+
+
+            Assert.IsTrue(game.board != null);
+            Assert.IsTrue(game.GoalStateboard != null);
+
+
+            for (i = 1; i <= 300; i++)
+            {
+                game.StartWithAutomaticShuffle();
+                Assert.IsFalse(game.IsInFinishedPosition);
+            }
+            //Assert.IsTrue(isAtLestOneCellDifferentThantheboard);
+
+
+        }
+        [TestMethod]
         public void GameMoveCell()
         {
             Game game = new Game(4, 4, new SlidePuzzle.UI.MockUI());

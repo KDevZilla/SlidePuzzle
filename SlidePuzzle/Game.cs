@@ -199,14 +199,20 @@ namespace SlidePuzzle
         {
            
             GameState = GameStateEnum.Shuffle;
-            Shuffle();
+            do
+            {
+                Shuffle();
+            }
+            while (IsInFinishedPosition);
+
+            
             GameState = GameStateEnum.Running;
             NoofMoves = 0;
         }
         public void Shuffle()
         {
             int iLoop = 0;
-            int iMaxLoop = 3;
+            int iMaxLoop = 10;
             int i = 0;
             for (iLoop = 1; iLoop <= iMaxLoop; iLoop++)
             {
@@ -239,6 +245,7 @@ namespace SlidePuzzle
                 }
 
             }
+
 
            
         }
@@ -313,7 +320,7 @@ namespace SlidePuzzle
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{PositionNextToNumberZero.key}");
+                throw new Exception  ($"{PositionNextToNumberZero.key}");
             }
             //PositionOfNumberZero 
         }
@@ -428,11 +435,6 @@ namespace SlidePuzzle
         protected void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, e);
-            /*
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, e);
-                */
         }
         protected void OnPropertyChanged(
     [System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
@@ -475,12 +477,14 @@ namespace SlidePuzzle
 
             ui.MoveTile(FromPosition, ToPosition, isPerformAnimation);
             MoveTile(FromPosition, ToPosition);
-
-            if (this.IsInFinishedPosition)
+            if (this.GameState != GameStateEnum.Shuffle)
             {
-                GameState = GameStateEnum.Stop;
-                Won?.Invoke(this, new EventArgs());
-                
+                if (this.IsInFinishedPosition)
+                {
+                    GameState = GameStateEnum.Stop;
+                    Won?.Invoke(this, new EventArgs());
+
+                }
             }
 
         }

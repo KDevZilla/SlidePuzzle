@@ -83,8 +83,6 @@ namespace SlidePuzzle
             game.Initial();
             game.StartWithAutomaticShuffle();
 
-
-
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -221,8 +219,12 @@ namespace SlidePuzzle
 
         private void Game_Won(object sender, EventArgs e)
         {
-
+            timerSecond.Enabled = false;
             MessageBox.Show("Finished");
+            FormScore f = new FormScore();
+            f.PlayerCurrentScore = int.Parse(this.lblTime.Text);
+            f.StartPosition = FormStartPosition.CenterParent;
+            f.ShowDialog(this);
 
         }
 
@@ -268,10 +270,32 @@ namespace SlidePuzzle
             f.Show();
 
         }
-
+        private int secondCound = 0;
+        Timer timerSecond = new Timer();
         private void button1_Click(object sender, EventArgs e)
         {
             game.StartWithAutomaticShuffle();
+            secondCound = 0;
+            timerSecond.Interval = 1000;
+            timerSecond.Tick -= TimerSecond_Tick;
+            timerSecond.Tick += TimerSecond_Tick;
+            timerSecond.Enabled = true;
+        }
+
+        private void TimerSecond_Tick(object sender, EventArgs e)
+        {
+            secondCound++;
+            this.lblTime.Text = secondCound.ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.lblTime.Text = "9";
+            Game_Won(null, null);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
