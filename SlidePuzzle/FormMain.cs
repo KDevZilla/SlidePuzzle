@@ -25,9 +25,9 @@ namespace SlidePuzzle
   
         private void NewGame(Configuration con)
         {
-            NewGame(con.RowSize, con.ColSize, con.IsUseImage, con.SelectedImageFilePath,con.BoradHeight ,con.BoardWidth );
+            NewGame(con.RowSize, con.ColSize, con.IsUseImage,con.IsShowNumberOverlay , con.SelectedImageFilePath,con.BoradHeight ,con.BoardWidth );
         }
-        private void NewGame(int rowSize,int columnSize, Boolean isUseImage,String imageFilePath, int boardHeight, int boardWidth)
+        private void NewGame(int rowSize,int columnSize, Boolean isUseImage, Boolean isShowNumberOverlay,String imageFilePath, int boardHeight, int boardWidth)
         {
 
             string UIControlName = "BoardUI";
@@ -57,7 +57,7 @@ namespace SlidePuzzle
            
             
             ui = new UI.BoardUI(rowSize, columnSize, boardHeight, boardWidth, image);
-            ui.IsShowNumberOverLay = true;
+            ui.IsShowNumberOverLay = isShowNumberOverlay;
 
             BoardUI b = (BoardUI)ui;
             b.Name = UIControlName;
@@ -81,13 +81,13 @@ namespace SlidePuzzle
                 }
             };
             game.Initial();
-            game.StartWithAutomaticShuffle();
+            StartGame();
 
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            
             /*
             ui = new UI.BoardUI(RowSize ,ColSize,BoardHeight ,BoardWidth );
             ui.IsShowNumberOverLay = true;
@@ -176,7 +176,7 @@ namespace SlidePuzzle
             FormChooseGame.RowSize = Configuration.Instance.RowSize;
             FormChooseGame.ColSize = FormChooseGame.RowSize;
             FormChooseGame.SelectedFileName = Configuration.Instance.SelectedImageFilePath;
-
+            FormChooseGame.IsShowNumberOverlay = Configuration.Instance.IsShowNumberOverlay;
             FormChooseGame.ShowDialog(this);
             if(FormChooseGame.DialogResult != DialogResult.OK)
             {
@@ -189,6 +189,7 @@ namespace SlidePuzzle
             Configuration.Instance.IsUseImage = FormChooseGame.IsUseImage;
             Configuration.Instance.RowSize = FormChooseGame.RowSize;
             Configuration.Instance.ColSize = FormChooseGame.ColSize;
+            Configuration.Instance.IsShowNumberOverlay = FormChooseGame.IsShowNumberOverlay;
 
             //   this.PnlThumnail =formChooseGame
             Configuration.SaveInstance();
@@ -221,8 +222,17 @@ namespace SlidePuzzle
         {
             timerSecond.Enabled = false;
             MessageBox.Show("Finished");
+
+            var newRank = ScoreHelper.CalculateNewRankFromScore(this.secondCount , Configuration.Instance.RowSize );
+            if(newRank <= -1)
+            {
+                return;
+            }
+
             FormScore f = new FormScore();
-            f.PlayerCurrentScore = int.Parse(this.lblTime.Text);
+            f.PlayerCurrentScore =secondCount ;
+            f.NewRank = newRank;
+            f.RowSize = Configuration.Instance.RowSize;
             f.StartPosition = FormStartPosition.CenterParent;
             f.ShowDialog(this);
 
@@ -260,6 +270,7 @@ namespace SlidePuzzle
         {
             FormScore f = new FormScore();
             f.PlayerCurrentScore = -1;
+            f.RowSize = Configuration.Instance.RowSize;
             f.StartPosition = FormStartPosition.CenterParent;
             f.ShowDialog();
         }
@@ -270,22 +281,26 @@ namespace SlidePuzzle
             f.Show();
 
         }
-        private int secondCound = 0;
+        private int secondCount = 0;
         Timer timerSecond = new Timer();
-        private void button1_Click(object sender, EventArgs e)
+        private void StartGame()
         {
             game.StartWithAutomaticShuffle();
-            secondCound = 0;
+            secondCount = 0;
             timerSecond.Interval = 1000;
             timerSecond.Tick -= TimerSecond_Tick;
             timerSecond.Tick += TimerSecond_Tick;
             timerSecond.Enabled = true;
         }
+        private void btnStartGame_Click(object sender, EventArgs e)
+        {
+            StartGame();
+        }
 
         private void TimerSecond_Tick(object sender, EventArgs e)
         {
-            secondCound++;
-            this.lblTime.Text = secondCound.ToString();
+            secondCount++;
+            this.lblTime.Text = secondCount.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -297,6 +312,11 @@ namespace SlidePuzzle
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Game_Won(null, null);
         }
     }
 }

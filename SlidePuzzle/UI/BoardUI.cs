@@ -80,7 +80,6 @@ namespace SlidePuzzle.UI
                     BorderStyle = lblTemplate.BorderStyle,
                     ForeColor = lblTemplate.ForeColor,
                     BackColor = lblTemplate.BackColor,
-                    // Text = (i + 1).ToString(),
                     Text = board[iRow, iCol].ToString(),
                     Tag = (i + 1).ToString(),
                     Top = iRow * TileHeight ,
@@ -90,14 +89,9 @@ namespace SlidePuzzle.UI
                 };
                 if(IsRenderImage)
                 {
-                    DrawLabel(this.BoardImage  , L, iCol, iRow);
-                    if(!IsShowNumberOverLay )
-                    {
-                        L.Text = "";
-                    } else
-                    {
-                        L.TextAlign = ContentAlignment.TopLeft;
-                    }
+                    DrawLabel(this.BoardImage  , L, iCol, iRow, IsShowNumberOverLay);
+                    L.Text = "";
+
                 }
                 L.Click += labelClick;
                 this.Controls.Add(L);
@@ -122,11 +116,11 @@ namespace SlidePuzzle.UI
         public bool IsShowNumberOverLay { get ; set ; }
         public Image BoardImage { get; set; }
 
-        private void DrawLabel(Image img, Label L,int x,int y)
+        private void DrawLabel(Image img, Label L,int x,int y, Boolean isShowNumberOverLay)
         {
-            DrawLabel(img , L, x, y, 0, 0);
+            DrawLabel(img , L, x, y, 0, 0,isShowNumberOverLay );
         }
-        private void DrawLabel(Image img, Label L, int x, int y, int xOffSet, int yOffset)
+        private void DrawLabel(Image img, Label L, int x, int y, int xOffSet, int yOffset,Boolean isShowNumberOverLay)
         {
             Bitmap NewImage = new Bitmap(L.Width, L.Height);
 
@@ -143,7 +137,24 @@ namespace SlidePuzzle.UI
               Rectangle rect = new Rectangle(lX + xOffSet, lY + yOffset, L.Width, L.Height);
             g.DrawImage(img , 0, 0, rect, GraphicsUnit.Pixel);
 
-          
+            if (isShowNumberOverLay)
+            {
+                // Need to draw border of the text
+                // To handle in a scenario that the picture just happens to have 
+                // the back ground color the same as the text
+                // For example the picture color is white then we cannot see the number
+                using (SolidBrush brushBorder=new SolidBrush(Color.Black  ))
+                {
+                    g.DrawString(L.Text, L.Font, brushBorder, 0.7f, 0);
+                    g.DrawString(L.Text, L.Font, brushBorder, -0.7f, 0);
+                    g.DrawString(L.Text, L.Font, brushBorder, 0f, 1f);
+                    g.DrawString(L.Text, L.Font, brushBorder, 0f, -0.7f);
+                }
+                
+                g.DrawString(L.Text, L.Font, Brushes.White, 0, 0);
+            }
+
+
             L.Image = NewImage;
 
 

@@ -108,7 +108,7 @@
             this.label1.BackColor = System.Drawing.Color.Silver;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1014, 267);
+            this.label1.Location = new System.Drawing.Point(897, 319);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 115);
             this.label1.TabIndex = 5;
@@ -120,7 +120,7 @@
             this.lblImgTemp.BackColor = System.Drawing.Color.Silver;
             this.lblImgTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblImgTemp.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImgTemp.Location = new System.Drawing.Point(873, 267);
+            this.lblImgTemp.Location = new System.Drawing.Point(756, 319);
             this.lblImgTemp.Name = "lblImgTemp";
             this.lblImgTemp.Size = new System.Drawing.Size(115, 115);
             this.lblImgTemp.TabIndex = 6;
@@ -179,7 +179,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "(No use, it exist just for testing)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

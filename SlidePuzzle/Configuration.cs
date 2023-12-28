@@ -57,6 +57,7 @@ namespace SlidePuzzle
             SerializeUtility.SerializeConfiguration(_Instance, FileUtility.ConfigurationSeralizePath);
             _Instance = null;
         }
+
         public static  Configuration Instance
         {
             get

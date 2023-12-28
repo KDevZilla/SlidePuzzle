@@ -35,11 +35,12 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTemplate = new System.Windows.Forms.Label();
             this.pnlEnterScore = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblCongratulation = new System.Windows.Forms.Label();
             this.txtNewScoreName = new System.Windows.Forms.TextBox();
             this.btnNewRank = new System.Windows.Forms.Button();
             this.lblNewScoreRank = new System.Windows.Forms.Label();
             this.pnlShowScore = new System.Windows.Forms.Panel();
+            this.lblRank = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlEnterScore.SuspendLayout();
             this.pnlShowScore.SuspendLayout();
@@ -136,7 +137,8 @@
             // 
             // pnlEnterScore
             // 
-            this.pnlEnterScore.Controls.Add(this.label4);
+            this.pnlEnterScore.Controls.Add(this.lblRank);
+            this.pnlEnterScore.Controls.Add(this.lblCongratulation);
             this.pnlEnterScore.Controls.Add(this.txtNewScoreName);
             this.pnlEnterScore.Controls.Add(this.btnNewRank);
             this.pnlEnterScore.Controls.Add(this.lblNewScoreRank);
@@ -145,17 +147,17 @@
             this.pnlEnterScore.Size = new System.Drawing.Size(433, 240);
             this.pnlEnterScore.TabIndex = 35;
             // 
-            // label4
+            // lblCongratulation
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label4.Location = new System.Drawing.Point(111, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(178, 30);
-            this.label4.TabIndex = 35;
-            this.label4.Text = "Congratulations!";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblCongratulation.AutoSize = true;
+            this.lblCongratulation.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCongratulation.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblCongratulation.Location = new System.Drawing.Point(20, 10);
+            this.lblCongratulation.Name = "lblCongratulation";
+            this.lblCongratulation.Size = new System.Drawing.Size(178, 30);
+            this.lblCongratulation.TabIndex = 35;
+            this.lblCongratulation.Text = "Congratulations!";
+            this.lblCongratulation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtNewScoreName
             // 
@@ -196,6 +198,17 @@
             this.pnlShowScore.Size = new System.Drawing.Size(774, 421);
             this.pnlShowScore.TabIndex = 36;
             // 
+            // lblRank
+            // 
+            this.lblRank.AutoSize = true;
+            this.lblRank.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRank.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblRank.Location = new System.Drawing.Point(20, 46);
+            this.lblRank.Name = "lblRank";
+            this.lblRank.Size = new System.Drawing.Size(0, 30);
+            this.lblRank.TabIndex = 36;
+            this.lblRank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormScore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,10 +242,11 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTemplate;
         private System.Windows.Forms.Panel pnlEnterScore;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblCongratulation;
         private System.Windows.Forms.TextBox txtNewScoreName;
         private System.Windows.Forms.Button btnNewRank;
         private System.Windows.Forms.Label lblNewScoreRank;
         private System.Windows.Forms.Panel pnlShowScore;
+        private System.Windows.Forms.Label lblRank;
     }
 }

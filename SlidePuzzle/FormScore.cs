@@ -91,19 +91,20 @@ namespace SlidePuzzle
         {
             int i = 0;
 
-            for (i = 0; i < ScoreHelper.scoreInfos(BoardSize).listScoreInfo.Count; i++)
+            for (i = 0; i < ScoreHelper.scoreInfos(RowSize).listScoreInfo.Count; i++)
             {
-                TimeSpan time = TimeSpan.FromSeconds(ScoreHelper.scoreInfos(BoardSize).listScoreInfo[i].Score);
-                String scoreFormat = time.ToString(@"mm\:ss\:fff");
+                TimeSpan time = TimeSpan.FromSeconds(ScoreHelper.scoreInfos(RowSize).listScoreInfo[i].Score);
+                String scoreFormat = time.ToString(@"hh\:mm\:ss");
                 //here backslash is must to tell that colon is
                 //not the part of format, it just a character that we want in output
                 
-                this.tableLayoutPanel1.GetControlFromPosition(0, i + 1).Text = ScoreHelper.scoreInfos(BoardSize).listScoreInfo[i].Rank.ToString();
+                this.tableLayoutPanel1.GetControlFromPosition(0, i + 1).Text = ScoreHelper.scoreInfos(RowSize).listScoreInfo[i].Rank.ToString();
                 this.tableLayoutPanel1.GetControlFromPosition(1, i + 1).Text = scoreFormat;
-                this.tableLayoutPanel1.GetControlFromPosition(2, i + 1).Text = ScoreHelper.scoreInfos(BoardSize).listScoreInfo[i].Name.ToString();
+                this.tableLayoutPanel1.GetControlFromPosition(2, i + 1).Text = ScoreHelper.scoreInfos(RowSize).listScoreInfo[i].Name.ToString();
             }
         }
         public int PlayerCurrentScore { get; set; }
+        public int NewRank { get; set; }
         private void ShowNewRank()
         {
             this.pnlEnterScore.Top = 5;
@@ -112,8 +113,19 @@ namespace SlidePuzzle
             this.pnlEnterScore.Visible = true;
             this.Height = this.pnlEnterScore.Height + this.pnlEnterScore.Top + 30;
             this.Width = this.pnlEnterScore.Width + this.pnlEnterScore.Left + 20;
-            this.txtNewScoreName.Text = ScoreHelper.scoreInfos(BoardSize).PreviousName;
-
+            this.lblRank.Text = $"You took {PlayerCurrentScore} seconds, your rank is {NewRank}";
+            this.txtNewScoreName.Text = ScoreHelper.scoreInfos(RowSize).PreviousName;
+ 
+            //Need to delay a little bit to make sure that the form already show itself first
+            Timer timerDelayFocusText = new Timer();
+            timerDelayFocusText.Interval = 200;
+            timerDelayFocusText.Tick += (o, e2) =>
+            {
+                this.txtNewScoreName.SelectAll();
+                txtNewScoreName.Focus();
+                timerDelayFocusText.Enabled = false;
+            };
+            timerDelayFocusText.Enabled = true;
         }
         private void ShowHallofFrame()
         {
@@ -128,19 +140,21 @@ namespace SlidePuzzle
             RenderScore();
 
         }
-        int BoardSize { get { return Configuration.Instance.RowSize; } }
+        public int RowSize { get; set; } = -1;
         private void FormScore_Load(object sender, EventArgs e)
         {
+            this.Text = $"Score for board size {RowSize} x {RowSize}";
+
+            this.txtNewScoreName.Enter += (o, e2) => txtNewScoreName.SelectAll();
+         //   this.txtNewScoreName.Click += (o, e2) => txtNewScoreName.SelectAll();
 
             // this.PlayerCurrentScore = 600;
             if (this.PlayerCurrentScore > -1)
             {
-                
-                if (ScoreHelper.CalculateNewRankFromScore(this.PlayerCurrentScore,BoardSize  ) > -1)
-                {
+              
                     ShowNewRank();
                     return;
-                }
+               
             }
 
             ShowHallofFrame();
@@ -149,10 +163,11 @@ namespace SlidePuzzle
         private void btnNewRank_Click(object sender, EventArgs e)
         {
             ScoreHelper.InsertNewRank(this.txtNewScoreName.Text, this.PlayerCurrentScore,Configuration.Instance.RowSize );
-            ScoreHelper.scoreInfos(BoardSize).PreviousName = this.txtNewScoreName.Text;
-          //  ScoreHelper.Save();
+            ScoreHelper.scoreInfos(RowSize).PreviousName = this.txtNewScoreName.Text;
+            ScoreHelper.SaveInstance(RowSize);
 
-            this.Close();
+            ShowHallofFrame();
+            //this.Close();
         }
     }
 }

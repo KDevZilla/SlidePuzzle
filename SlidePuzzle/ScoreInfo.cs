@@ -62,7 +62,7 @@ namespace SlidePuzzle
                 //for(i=scoreInfos.listScoreInfo.Count -1;i>=0;i--)
                 for (i = 0; i < scoreInfos(BoardSize).listScoreInfo.Count; i++)
                 {
-                    if (scoreInfos(BoardSize).listScoreInfo[i].Score < Score)
+                    if (scoreInfos(BoardSize).listScoreInfo[i].Score > Score)
                     {
                         PlayerNewRank = scoreInfos(BoardSize).listScoreInfo[i].Rank;
                         break;
@@ -76,7 +76,7 @@ namespace SlidePuzzle
         {
 
             scoreInfos(BoardSize ).listScoreInfo.Add(new ScoreInfo(-1, Name, Score));
-            List<ScoreInfo> SortedList = scoreInfos(BoardSize).listScoreInfo.OrderByDescending(o => o.Score).Take(10).ToList();
+            List<ScoreInfo> SortedList = scoreInfos(BoardSize).listScoreInfo.OrderBy(o => o.Score).Take(10).ToList();
             int i;
             for (i = 0; i < 10; i++)
             {
@@ -115,7 +115,7 @@ namespace SlidePuzzle
                     int j;
                     for(j=1;j<=10;j++)
                     {
-                        scoreInfos.listScoreInfo.Add(new ScoreInfo(j, "Anonymous", 1000));
+                        scoreInfos.listScoreInfo.Add(new ScoreInfo(j, "Anonymous", 50+(j*10)));
                     }
                     scoreInfos.PreviousName = "Anonymous";
 

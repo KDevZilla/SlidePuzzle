@@ -89,14 +89,7 @@ namespace SlidePuzzle
 
 
         }
-        // To let caller access it to that the caller can keep it it cache
-        /*
-        public UI.pnlThumbnail PanelThumbNail
-        {
-            get => this.pnlThumbnail1;
-            set => this.pnlThumbnail1 = value;
-        }
-        */
+
         private void PnlDis_ItemDouble_Clicked(object sender, EventArgs e)
         {
            // String fileName = ((UI.labelDisplayPicture.StringEventArgs)e).Value;
@@ -186,40 +179,38 @@ namespace SlidePuzzle
         }
         public Boolean IsUseImage { get;  set; } = true;
         public string SelectedFileName { get;  set; } = "";
-        public int NumberofSlide { get; private set; } = 15;
+     //   public int NumberofSlide { get; private set; } = 15;
         public int RowSize { get;  set; } = 4;
         public int ColSize { get;  set; } = 4;
-
+        public Boolean IsShowNumberOverlay { get; set; } = true;
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
 
 
             this.IsUseImage = this.chkUseImage.Checked;
-
+            this.IsShowNumberOverlay = this.chkIsShowNumberOverlay.Checked;
             this.SelectedFileName = IsUseImage
                 ? pnlThumbnail1.SelectedImageFileName
                 : "";
-
-            this.NumberofSlide = int.Parse(this.cboNumberofBlock.Items[this.cboNumberofBlock.SelectedIndex].ToString());
-
+          
             //
             //RowSize = this.cboNumberofBlock.SelectedIndex + 3;
 
-            switch (NumberofSlide)
+            switch (this.cboNumberofBlock.SelectedIndex)
             {
-                case 8:
+                case 0:
                     RowSize = 3;
                     break;
                     
-                case 15:
+                case 1:
                     RowSize = 4;
                     break;
-                case 24:
+                case 2:
                     RowSize = 5;
                     break;
                 default:
-                    throw new Exception($"{NumberofSlide} is invalid value of Number of slide, the valid value must be 8, 15, 24");
+                    throw new Exception($"Board Size is invalid");
             }
             this.ColSize = RowSize;
             this.Close();
