@@ -25,9 +25,9 @@ namespace SlidePuzzle
   
         private void NewGame(Configuration con)
         {
-            NewGame(con.RowSize, con.ColSize, con.IsUseImage,con.IsShowNumberOverlay , con.SelectedImageFilePath,con.BoradHeight ,con.BoardWidth );
+            NewGame(con.RowSize, con.ColSize, con.IsUseImage,con.IsShowNumberOverlay , con.SelectedImageFilePath,con.BoradHeight ,con.BoardWidth,con.TileMoveSpeed  );
         }
-        private void NewGame(int rowSize,int columnSize, Boolean isUseImage, Boolean isShowNumberOverlay,String imageFilePath, int boardHeight, int boardWidth)
+        private void NewGame(int rowSize,int columnSize, Boolean isUseImage, Boolean isShowNumberOverlay,String imageFilePath, int boardHeight, int boardWidth, int tileMoveSpeed)
         {
 
             string UIControlName = "BoardUI";
@@ -58,6 +58,7 @@ namespace SlidePuzzle
             
             ui = new UI.BoardUI(rowSize, columnSize, boardHeight, boardWidth, image);
             ui.IsShowNumberOverLay = isShowNumberOverlay;
+            ui.TileMoveSpeed = tileMoveSpeed;
 
             BoardUI b = (BoardUI)ui;
             b.Name = UIControlName;
@@ -99,7 +100,8 @@ namespace SlidePuzzle
                 Configuration.Instance.IsShowNumberOverlay ,
                 Configuration.Instance.SelectedImageFilePath,
                 Configuration.Instance.BoradHeight ,
-                Configuration.Instance.BoardWidth);
+                Configuration.Instance.BoardWidth,
+                Configuration.Instance.TileMoveSpeed);
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -172,7 +174,9 @@ namespace SlidePuzzle
             FormChooseGame.ColSize = FormChooseGame.RowSize;
             FormChooseGame.SelectedFileName = Configuration.Instance.SelectedImageFilePath;
             FormChooseGame.IsShowNumberOverlay = Configuration.Instance.IsShowNumberOverlay;
+            FormChooseGame.TileMoveSpeed = Configuration.Instance.TileMoveSpeed;
             FormChooseGame.ShowDialog(this);
+
             if(FormChooseGame.DialogResult != DialogResult.OK)
             {
                 return;
@@ -185,6 +189,8 @@ namespace SlidePuzzle
             Configuration.Instance.RowSize = FormChooseGame.RowSize;
             Configuration.Instance.ColSize = FormChooseGame.ColSize;
             Configuration.Instance.IsShowNumberOverlay = FormChooseGame.IsShowNumberOverlay;
+            Configuration.Instance.TileMoveSpeed = FormChooseGame.TileMoveSpeed;
+
             Configuration.SaveInstance();
             NewGame(Configuration.Instance);
         }
@@ -261,7 +267,8 @@ namespace SlidePuzzle
         private void TimerSecond_Tick(object sender, EventArgs e)
         {
             secondCount++;
-            this.lblTime.Text = secondCount.ToString();
+            TimeSpan timeSpan = TimeSpan.FromSeconds(secondCount);
+            this.lblTime.Text = timeSpan.ToString(@"hh\:mm\:ss");
         }
 
         private void button2_Click(object sender, EventArgs e)

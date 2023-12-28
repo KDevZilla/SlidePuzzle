@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace SlidePuzzle.UI
 {
-    public class BoardUI:Panel,IBoardUI
+    public class BoardUI:Panel, IBoardUI
     {
         public int RowSize { get; private set; }
         public int ColSize { get; private set; }
@@ -159,22 +159,38 @@ namespace SlidePuzzle.UI
 
 
         }
+        public int TileMoveSpeed { get;  set; } = 5;
+        public void MoveTiteNoAnimation(Position fromPosition, Position toPosition)
+        {
+            int FromValue = board[fromPosition.Row, fromPosition.Column];
 
-        public void MoveTile(Position fromPosition, Position toPosition, Boolean isPerformAnimation)
+            int destinationTop = toPosition.Row * TileHeight;
+            int destinationLeft = toPosition.Column * TileWidth;
+
+            DicTilt[FromValue].Top = destinationTop;
+            DicTilt[FromValue].Left = destinationLeft;
+           
+        }
+        public void MoveTile(Position fromPosition, Position toPosition )
         {
             //DicPosition []
-         
+            if(TileMoveSpeed >= 5)
+            {
+                MoveTiteNoAnimation(fromPosition, toPosition);
+                return;
+            }
             int FromValue = board[fromPosition.Row , fromPosition.Column ];
 
             int destinationTop = toPosition.Row  * TileHeight;
             int destinationLeft = toPosition.Column  * TileWidth;
-            if (!isPerformAnimation)
+            /*
+            if (TileMoveSpeed >= 5)
             {
                 DicTilt[FromValue].Top = destinationTop;
                 DicTilt[FromValue].Left = destinationLeft;
                 return;
             }
-
+            */
 
 
             int deltaY = 0;
@@ -211,7 +227,7 @@ namespace SlidePuzzle.UI
                 DicTilt[FromValue].Top += deltaY;
                 DicTilt[FromValue].Left += deltaX;
 
-                if (iCount >= 10)
+                if (iCount >= TileMoveSpeed * 5)
                 {
                     // Application.DoEvents();
                     System.Threading.Thread.Sleep(1);

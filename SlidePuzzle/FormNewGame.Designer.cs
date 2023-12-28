@@ -38,6 +38,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.chkUseImage = new System.Windows.Forms.CheckBox();
             this.chkIsShowNumberOverlay = new System.Windows.Forms.CheckBox();
+            this.cboTileMoveSpeed = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.pnlThumbnail1 = new SlidePuzzle.UI.pnlThumbnail();
             this.SuspendLayout();
             // 
@@ -60,7 +62,7 @@
             // 
             // btnAddNewImage
             // 
-            this.btnAddNewImage.Location = new System.Drawing.Point(548, 101);
+            this.btnAddNewImage.Location = new System.Drawing.Point(548, 137);
             this.btnAddNewImage.Name = "btnAddNewImage";
             this.btnAddNewImage.Size = new System.Drawing.Size(147, 39);
             this.btnAddNewImage.TabIndex = 2;
@@ -70,7 +72,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(619, 453);
+            this.btnCancel.Location = new System.Drawing.Point(616, 485);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(76, 39);
             this.btnCancel.TabIndex = 4;
@@ -80,7 +82,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(537, 453);
+            this.btnOK.Location = new System.Drawing.Point(534, 485);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(76, 39);
             this.btnOK.TabIndex = 5;
@@ -91,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(51, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 21);
             this.label2.TabIndex = 7;
@@ -105,7 +107,7 @@
             "3 x 3",
             "4 x 4",
             "5 x 5"});
-            this.cboNumberofBlock.Location = new System.Drawing.Point(119, 6);
+            this.cboNumberofBlock.Location = new System.Drawing.Point(143, 6);
             this.cboNumberofBlock.Name = "cboNumberofBlock";
             this.cboNumberofBlock.Size = new System.Drawing.Size(135, 29);
             this.cboNumberofBlock.TabIndex = 8;
@@ -113,7 +115,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 110);
+            this.label3.Location = new System.Drawing.Point(12, 146);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 21);
             this.label3.TabIndex = 9;
@@ -122,7 +124,7 @@
             // chkUseImage
             // 
             this.chkUseImage.AutoSize = true;
-            this.chkUseImage.Location = new System.Drawing.Point(16, 53);
+            this.chkUseImage.Location = new System.Drawing.Point(16, 89);
             this.chkUseImage.Name = "chkUseImage";
             this.chkUseImage.Size = new System.Drawing.Size(102, 25);
             this.chkUseImage.TabIndex = 10;
@@ -134,18 +136,42 @@
             // 
             this.chkIsShowNumberOverlay.AutoSize = true;
             this.chkIsShowNumberOverlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkIsShowNumberOverlay.Location = new System.Drawing.Point(16, 84);
+            this.chkIsShowNumberOverlay.Location = new System.Drawing.Point(16, 120);
             this.chkIsShowNumberOverlay.Name = "chkIsShowNumberOverlay";
             this.chkIsShowNumberOverlay.Size = new System.Drawing.Size(342, 24);
             this.chkIsShowNumberOverlay.TabIndex = 14;
             this.chkIsShowNumberOverlay.Text = "Show Number overlay in case of using image";
             this.chkIsShowNumberOverlay.UseVisualStyleBackColor = true;
             // 
+            // cboTileMoveSpeed
+            // 
+            this.cboTileMoveSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTileMoveSpeed.FormattingEnabled = true;
+            this.cboTileMoveSpeed.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cboTileMoveSpeed.Location = new System.Drawing.Point(143, 41);
+            this.cboTileMoveSpeed.Name = "cboTileMoveSpeed";
+            this.cboTileMoveSpeed.Size = new System.Drawing.Size(135, 29);
+            this.cboTileMoveSpeed.TabIndex = 16;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 44);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(125, 21);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Tile Move speed:";
+            // 
             // pnlThumbnail1
             // 
             this.pnlThumbnail1.imageCache = null;
             this.pnlThumbnail1.IsUseCacheImage = false;
-            this.pnlThumbnail1.Location = new System.Drawing.Point(12, 143);
+            this.pnlThumbnail1.Location = new System.Drawing.Point(12, 179);
             this.pnlThumbnail1.Name = "pnlThumbnail1";
             this.pnlThumbnail1.SelectedImageFileName = "";
             this.pnlThumbnail1.Size = new System.Drawing.Size(681, 299);
@@ -155,7 +181,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(703, 500);
+            this.ClientSize = new System.Drawing.Size(703, 536);
+            this.Controls.Add(this.cboTileMoveSpeed);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.chkIsShowNumberOverlay);
             this.Controls.Add(this.chkUseImage);
             this.Controls.Add(this.label3);
@@ -168,7 +196,10 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormNewGame";
             this.Text = "Select Image";
             this.Load += new System.EventHandler(this.FormTestPnlDisplay_Load);
@@ -190,5 +221,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox chkUseImage;
         private System.Windows.Forms.CheckBox chkIsShowNumberOverlay;
+        private System.Windows.Forms.ComboBox cboTileMoveSpeed;
+        private System.Windows.Forms.Label label4;
     }
 }

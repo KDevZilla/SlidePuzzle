@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace SlidePuzzle
 {
-    public partial class frmSelectRegion : Form
+    public partial class FormSelectRegion : Form
     {
-        public frmSelectRegion()
+        public FormSelectRegion()
         {
             InitializeComponent();
         }

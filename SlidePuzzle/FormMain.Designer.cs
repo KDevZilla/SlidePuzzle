@@ -167,7 +167,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.BackColor = System.Drawing.Color.Teal;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnStartGame);
             this.panel1.Controls.Add(this.lblTime);
@@ -187,7 +187,9 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblTemplate);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimizeBox = false;
             this.Name = "FormMain";
             this.Text = "SlidePuzzle";
             this.Load += new System.EventHandler(this.Form2_Load);

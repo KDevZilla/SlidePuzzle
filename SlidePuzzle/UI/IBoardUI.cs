@@ -11,8 +11,10 @@ namespace SlidePuzzle.UI
     public interface IBoardUI
     {
         event TiltClickHandler TiltClick;
-        void MoveTile(Position fromPosition, Position toPosition, Boolean isPerformAnimation);
+        void MoveTile(Position fromPosition, Position toPosition);
+        void MoveTiteNoAnimation(Position fromPosition, Position toPosition);
         Boolean IsShowNumberOverLay { get; set; }
+        int TileMoveSpeed { get; set; }
         Image BoardImage { get;  }
         void Initial(Game game);
         void Clear();
@@ -21,6 +23,7 @@ namespace SlidePuzzle.UI
     {
         public bool IsShowNumberOverLay { get; set; } = false;
         public Image BoardImage { get; set; } = null;
+        public int TileMoveSpeed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event TiltClickHandler TiltClick;
 
@@ -35,11 +38,16 @@ namespace SlidePuzzle.UI
             //throw new NotImplementedException();
         }
 
-        public void MoveTile(Position fromPosition, Position toPosition, bool isPerformAnimation)
+        public void MoveTile(Position fromPosition, Position toPosition)
         {
             //game.SetBoardValue(toPosition, game.board[fromPosition.Row, fromPosition.Column]);
            // game.SetBoardValue(fromPosition, 0);
             //throw new NotImplementedException();
+        }
+
+        public void MoveTiteNoAnimation(Position fromPosition, Position toPosition)
+        {
+           // throw new NotImplementedException();
         }
     }
 }

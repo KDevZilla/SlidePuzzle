@@ -1,6 +1,6 @@
 ﻿namespace SlidePuzzle
 {
-    partial class frmSelectRegion
+    partial class FormSelectRegion
     {
         /// <summary>
         /// Required designer variable.

@@ -474,8 +474,15 @@ namespace SlidePuzzle
             Position FromPosition = DicPositionFromNumber[index];
             Position ToPosition = GetNeibhourPosition(FromPosition, MovetoEmptyDirection);
 
+            if (!isPerformAnimation)
+            {
+                ui.MoveTiteNoAnimation(FromPosition, ToPosition);
+            }
+            else
+            {
+                ui.MoveTile(FromPosition, ToPosition);
+            }
 
-            ui.MoveTile(FromPosition, ToPosition, isPerformAnimation);
             MoveTile(FromPosition, ToPosition);
             if (this.GameState != GameStateEnum.Shuffle)
             {

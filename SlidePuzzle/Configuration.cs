@@ -13,6 +13,8 @@ namespace SlidePuzzle
         public Color TileBackColor { get; set; }
         public Color TileForeColor { get; set; }
         public float TileFontSize { get; set; }
+
+        public int TileMoveSpeed { get; set; } = 5;
         public bool IsShowNumberOverlay { get; set; }
         public bool IsUseImage { get; set; }
         public int RowSize { get; set; }

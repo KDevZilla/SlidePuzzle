@@ -31,7 +31,7 @@ namespace SlidePuzzle
             return list;
 
         }
-        //UI.pnlThumbnail pnlDis = null;
+
 
         public String ImageFilePath { get; set; } = "";
         public UI.ImageCached imageCached { get; set; } = null;
@@ -50,8 +50,7 @@ namespace SlidePuzzle
             RenderImages(pnlThumbnail1, listImage);
 
             this.KeyPreview = true;
-            this.Text = pnlThumbnail1.Height + "," + this.pnlThumbnail1.Width;
-
+          
             this.chkUseImage.CheckedChanged += (o, e2) =>
             {
                 this.pnlThumbnail1.Enabled = chkUseImage.Checked;
@@ -86,7 +85,9 @@ namespace SlidePuzzle
             {
                 pnlThumbnail1.SelecteImageByFileName(this.SelectedFileName );
             }
-          
+            this.chkIsShowNumberOverlay.Checked = this.IsShowNumberOverlay;
+            this.cboTileMoveSpeed.SelectedIndex = this.TileMoveSpeed - 1;
+
 
 
         }
@@ -153,7 +154,7 @@ namespace SlidePuzzle
             //    int BoardHeight = 400;
             //    int BoardWidth = 400;
              
-            frmSelectRegion F = new frmSelectRegion();
+            FormSelectRegion F = new FormSelectRegion();
             F.SetImageInfo(opf.FileName, Configuration.Instance.BoradHeight, Configuration.Instance.BoardWidth );
             F.StartPosition = FormStartPosition.CenterParent;
             DialogResult result = F.ShowDialog(this);
@@ -180,9 +181,11 @@ namespace SlidePuzzle
         }
         public Boolean IsUseImage { get;  set; } = true;
         public string SelectedFileName { get;  set; } = "";
-     //   public int NumberofSlide { get; private set; } = 15;
+        public int TileMoveSpeed { get; set; } = 5;
         public int RowSize { get;  set; } = 4;
         public int ColSize { get;  set; } = 4;
+
+
         public Boolean IsShowNumberOverlay { get; set; } = true;
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -213,6 +216,8 @@ namespace SlidePuzzle
                 default:
                     throw new Exception($"Board Size is invalid");
             }
+
+            this.TileMoveSpeed = this.cboTileMoveSpeed.SelectedIndex + 1;
             this.ColSize = RowSize;
             this.Close();
         }
