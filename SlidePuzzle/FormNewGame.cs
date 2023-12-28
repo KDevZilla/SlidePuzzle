@@ -56,6 +56,7 @@ namespace SlidePuzzle
             {
                 this.pnlThumbnail1.Enabled = chkUseImage.Checked;
                 this.btnAddNewImage.Enabled = chkUseImage.Checked;
+                this.chkIsShowNumberOverlay.Enabled = chkUseImage.Checked;
             };
             this.btnAddNewImage.Click += btnAddNewImage_Click;
             cboNumberofBlock.SelectedIndex = 0;
@@ -214,6 +215,11 @@ namespace SlidePuzzle
             }
             this.ColSize = RowSize;
             this.Close();
+        }
+
+        private void chkUseImage_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

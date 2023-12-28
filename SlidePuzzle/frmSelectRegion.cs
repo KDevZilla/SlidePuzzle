@@ -173,40 +173,6 @@ namespace SlidePuzzle
             // SavePicture();
         }
 
-        // Decide not to use them
-        /*
-        private int _RowSize = 4;
-        public int RowSize
-        {
-            get
-            {
-                return _RowSize;
-            }
-            set
-            {
-                _RowSize = value;
-            }
-        }
-        
-        private int _TileWidth = 115;
-        public int TileWidth
-        {
-            get
-            {
-                return _TileWidth;
-            }
-            set
-            {
-                _TileWidth = value;
-            }
-        }
-        private int _TileHigh = 115;
-        public int TileHigh
-        {
-            get { return _TileHigh; }
-            set { _TileHigh = value; }
-        }
-        */
         private string ImageFileName = "";
         public void SetImageInfo(String imageFileName, int cropHeight, int cropWidth)
         {
@@ -244,6 +210,7 @@ namespace SlidePuzzle
         }
         private void frmSelectRegion_Load(object sender, EventArgs e)
         {
+            this.lblImageSizeInfo.Text = $"Please make sure that image you choose has the size at least {Configuration.Instance.BoardWidth }x{Configuration.Instance.BoardWidth}";
             String WarningMessage = "";
             //if(!IsImageValid (ImageFileName , ))
             this.pictureBoxMain.Image = Image.FromFile(ImageFileName);
@@ -261,9 +228,6 @@ namespace SlidePuzzle
             PicBackGroudImage = (Bitmap)this.pictureBoxMain.Image;
 
 
-
-           // cropWidth = TileWidth  * RowSize  ;
-           // cropHeight = TileHigh  * RowSize;
             AcceptRectangle = new Rectangle(0, 0, pictureBoxMain.Width - cropWidth - 1, pictureBoxMain.Height - cropHeight - 1);
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.pictureBoxMain);

@@ -32,11 +32,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemNewGame = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.x5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemBoardSize3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemBoardSize4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemBoardSize5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +41,6 @@
             this.lblNumberofMoves = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,8 +73,6 @@
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemNewGame,
-            this.toolStripMenuItem1,
-            this.x5ToolStripMenuItem,
             this.toolStripMenuItem3,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -91,63 +83,26 @@
             // ToolStripMenuItemNewGame
             // 
             this.ToolStripMenuItemNewGame.Name = "ToolStripMenuItemNewGame";
-            this.ToolStripMenuItemNewGame.Size = new System.Drawing.Size(182, 22);
+            this.ToolStripMenuItemNewGame.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItemNewGame.Text = "New Game";
             this.ToolStripMenuItemNewGame.Click += new System.EventHandler(this.ToolStripMenuItemNewGame_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
-            this.toolStripMenuItem1.Text = "Board Configuration";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // x5ToolStripMenuItem
-            // 
-            this.x5ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemBoardSize3,
-            this.toolStripMenuItemBoardSize4,
-            this.toolStripMenuItemBoardSize5});
-            this.x5ToolStripMenuItem.Name = "x5ToolStripMenuItem";
-            this.x5ToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.x5ToolStripMenuItem.Text = "Board Size";
-            this.x5ToolStripMenuItem.Click += new System.EventHandler(this.x5ToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItemBoardSize3
-            // 
-            this.toolStripMenuItemBoardSize3.Name = "toolStripMenuItemBoardSize3";
-            this.toolStripMenuItemBoardSize3.Size = new System.Drawing.Size(98, 22);
-            this.toolStripMenuItemBoardSize3.Text = "3 x 3";
-            this.toolStripMenuItemBoardSize3.Click += new System.EventHandler(this.toolStripMenuItemBoardChoose);
-            // 
-            // toolStripMenuItemBoardSize4
-            // 
-            this.toolStripMenuItemBoardSize4.Name = "toolStripMenuItemBoardSize4";
-            this.toolStripMenuItemBoardSize4.Size = new System.Drawing.Size(98, 22);
-            this.toolStripMenuItemBoardSize4.Text = "4 x 4";
-            // 
-            // toolStripMenuItemBoardSize5
-            // 
-            this.toolStripMenuItemBoardSize5.Name = "toolStripMenuItemBoardSize5";
-            this.toolStripMenuItemBoardSize5.Size = new System.Drawing.Size(98, 22);
-            this.toolStripMenuItemBoardSize5.Text = "5 x 5";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(182, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "Score";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -213,7 +168,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnStartGame);
             this.panel1.Controls.Add(this.lblTime);
@@ -225,17 +179,6 @@
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(89, 286);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 44);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Won";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,7 +189,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
-            this.Text = "K15Puzzle";
+            this.Text = "SlidePuzzle";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -263,13 +206,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemNewGame;
-        private System.Windows.Forms.ToolStripMenuItem x5ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBoardSize3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBoardSize4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBoardSize5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Button btnStartGame;
         private System.Windows.Forms.Label label2;
@@ -277,6 +215,5 @@
         private System.Windows.Forms.Label lblNumberofMoves;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
     }
 }

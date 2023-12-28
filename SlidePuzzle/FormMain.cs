@@ -88,30 +88,15 @@ namespace SlidePuzzle
         private void Form2_Load(object sender, EventArgs e)
         {
             
-            /*
-            ui = new UI.BoardUI(RowSize ,ColSize,BoardHeight ,BoardWidth );
-            ui.IsShowNumberOverLay = true;
-            //ui.BoardImage = Image.FromFile(@"D:\Krirk\Pictures\From_ACER2\3503_gta_iv_art.jpg");
-          
-            BoardUI b = (BoardUI)ui;
-            b.Name = "BoardUI";
-            b.lblTemplate = this.lblTemplate;
-            b.Visible = true;
-            b.BorderStyle = BorderStyle.FixedSingle;
-            this.Controls.Add(b);
-            */
 
-            this.toolStripMenuItemBoardSize3.Click -= toolStripMenuItemBoardChoose;
-            this.toolStripMenuItemBoardSize4.Click -= toolStripMenuItemBoardChoose;
-            this.toolStripMenuItemBoardSize5.Click -= toolStripMenuItemBoardChoose;
-            this.toolStripMenuItemBoardSize3.Click += toolStripMenuItemBoardChoose;
-            this.toolStripMenuItemBoardSize4.Click += toolStripMenuItemBoardChoose;
-            this.toolStripMenuItemBoardSize5.Click += toolStripMenuItemBoardChoose;
+
+
             this.lblTemplate.BackColor = Color.FromArgb(48, 48, 48);
 
             NewGame(Configuration.Instance.RowSize ,
                 Configuration.Instance.ColSize ,
                 Configuration.Instance.IsUseImage , 
+                Configuration.Instance.IsShowNumberOverlay ,
                 Configuration.Instance.SelectedImageFilePath,
                 Configuration.Instance.BoradHeight ,
                 Configuration.Instance.BoardWidth);
@@ -126,7 +111,7 @@ namespace SlidePuzzle
                  || keyData == Keys.Right)
             {
                 game.SendKeyDirection(keyData);
-                //pnlThumbnail1.MoveSelectedImage((UI.pnlThumbnail.MoveSelectedImageDirection)keyData);
+               
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -148,12 +133,22 @@ namespace SlidePuzzle
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(DialogResult.OK != MessageBox.Show ("Do you want to exit ?","", MessageBoxButtons.OKCancel ))
+            {
+                return;
+            }
             Application.Exit();
 
         }
+        /*
+         * The purpose of imageCached to stroe an image that will be loaded into the items on
+          FormNewGame but we might does not have much benefit to use it because
+          We already cache the whole FormNewGame
 
+            _FormChooseGame will not be destory when the user choose the game type
+            because we don't want to reload an image thumbnail every time
+        */
         private ImageCached imageCached = new ImageCached();
-        //  private pnlThumbnail PnlThumnail = null;
         private FormNewGame _FormChooseGame = null;
         private FormNewGame FormChooseGame
         {
@@ -190,8 +185,6 @@ namespace SlidePuzzle
             Configuration.Instance.RowSize = FormChooseGame.RowSize;
             Configuration.Instance.ColSize = FormChooseGame.ColSize;
             Configuration.Instance.IsShowNumberOverlay = FormChooseGame.IsShowNumberOverlay;
-
-            //   this.PnlThumnail =formChooseGame
             Configuration.SaveInstance();
             NewGame(Configuration.Instance);
         }
@@ -200,23 +193,13 @@ namespace SlidePuzzle
 
         private void toolStripMenuItemBoardChoose(object sender, EventArgs e)
         {
-            this.toolStripMenuItemBoardSize3.Checked = false;
-            this.toolStripMenuItemBoardSize4.Checked = false;
-            this.toolStripMenuItemBoardSize5.Checked = false;
+
 
             ((ToolStripMenuItem)sender).Checked = true;
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            /*
-            game.Start();
-            game.Won -= Game_Won;
-            game.Won += Game_Won;
-            */
 
-        }
 
         private void Game_Won(object sender, EventArgs e)
         {
@@ -240,31 +223,9 @@ namespace SlidePuzzle
 
        
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            FormBoardConfiguration f = new FormBoardConfiguration();
-         //   f.BoardWidth = this.BoardWidth;
-         //   f.BoardHeight = this.BoardHeight;
-            f.ShowDialog();
+      
 
-            if(f.SelectedFilePath==null ||
-                f.SelectedFilePath.Trim ()=="")
-            {
-                return;
-            }
-            Configuration.Instance.SelectedImageFilePath = f.SelectedFilePath;
-            Configuration.SaveInstance();
-
-          //  GC.Collect();
-
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            FormTileApperance f = new FormTileApperance();
-            f.ShowDialog();
-
-        }
+       
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {

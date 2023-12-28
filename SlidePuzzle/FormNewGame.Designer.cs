@@ -37,8 +37,8 @@
             this.cboNumberofBlock = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chkUseImage = new System.Windows.Forms.CheckBox();
-            this.pnlThumbnail1 = new SlidePuzzle.UI.pnlThumbnail();
             this.chkIsShowNumberOverlay = new System.Windows.Forms.CheckBox();
+            this.pnlThumbnail1 = new SlidePuzzle.UI.pnlThumbnail();
             this.SuspendLayout();
             // 
             // label1
@@ -128,16 +128,7 @@
             this.chkUseImage.TabIndex = 10;
             this.chkUseImage.Text = "Use Image";
             this.chkUseImage.UseVisualStyleBackColor = true;
-            // 
-            // pnlThumbnail1
-            // 
-            this.pnlThumbnail1.imageCache = null;
-            this.pnlThumbnail1.IsUseCacheImage = false;
-            this.pnlThumbnail1.Location = new System.Drawing.Point(12, 143);
-            this.pnlThumbnail1.Name = "pnlThumbnail1";
-            this.pnlThumbnail1.SelectedImageFileName = "";
-            this.pnlThumbnail1.Size = new System.Drawing.Size(681, 299);
-            this.pnlThumbnail1.TabIndex = 6;
+            this.chkUseImage.CheckedChanged += new System.EventHandler(this.chkUseImage_CheckedChanged);
             // 
             // chkIsShowNumberOverlay
             // 
@@ -149,6 +140,16 @@
             this.chkIsShowNumberOverlay.TabIndex = 14;
             this.chkIsShowNumberOverlay.Text = "Show Number overlay in case of using image";
             this.chkIsShowNumberOverlay.UseVisualStyleBackColor = true;
+            // 
+            // pnlThumbnail1
+            // 
+            this.pnlThumbnail1.imageCache = null;
+            this.pnlThumbnail1.IsUseCacheImage = false;
+            this.pnlThumbnail1.Location = new System.Drawing.Point(12, 143);
+            this.pnlThumbnail1.Name = "pnlThumbnail1";
+            this.pnlThumbnail1.SelectedImageFileName = "";
+            this.pnlThumbnail1.Size = new System.Drawing.Size(681, 299);
+            this.pnlThumbnail1.TabIndex = 6;
             // 
             // FormNewGame
             // 
