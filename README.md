@@ -19,12 +19,15 @@
 Not only does the program provide you with a range of images to choose from, but you can also choose an image on your computer provided that its size must   
 be at least 600x600.
 
-1. Click on ... Add New Image button.
-   ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_02.png)    
-2. Choose a jpeg file on your machine.
-   ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_03.png)  
+1. Click on ... Add New Image button.  
+   ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_02.png)
+   
+2. Choose a jpeg file on your machine.  
+   ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_03.png)
+   
 3. Crop the part of the image you choose.
-   ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_04.png)  
+   ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_04.png)
+   
 4. Now you will see that there is a new image appearing on the gallery, from now on
    you can choose this image. 
    ![Game](https://raw.githubusercontent.com/KDevZilla/ImageUpload/main/SlidePuzzle/SlidePuzzle_05.png)  
