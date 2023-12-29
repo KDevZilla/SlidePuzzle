@@ -169,6 +169,7 @@ namespace SlidePuzzle
         }
         private void ToolStripMenuItemNewGame_Click(object sender, EventArgs e)
         {
+            FormChooseGame.Icon = this.Icon;
             FormChooseGame.IsUseImage = Configuration.Instance.IsUseImage;
             FormChooseGame.RowSize = Configuration.Instance.RowSize;
             FormChooseGame.ColSize = FormChooseGame.RowSize;
@@ -236,6 +237,7 @@ namespace SlidePuzzle
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             FormScore f = new FormScore();
+            f.Icon = this.Icon;
             f.PlayerCurrentScore = -1;
             f.RowSize = Configuration.Instance.RowSize;
             f.StartPosition = FormStartPosition.CenterParent;
