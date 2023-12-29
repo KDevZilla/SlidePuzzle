@@ -242,12 +242,7 @@ namespace SlidePuzzle
             f.ShowDialog();
         }
 
-        private void form1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form1 f = new Form1();
-            f.Show();
-
-        }
+       
         private int secondCount = 0;
         Timer timerSecond = new Timer();
         private void StartGame()
