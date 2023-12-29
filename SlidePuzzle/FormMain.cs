@@ -283,5 +283,13 @@ namespace SlidePuzzle
         {
             Game_Won(null, null);
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAbout f = new FormAbout();
+            f.StartPosition = FormStartPosition.CenterParent;
+            f.ShowDialog(this);
+
+        }
     }
 }
