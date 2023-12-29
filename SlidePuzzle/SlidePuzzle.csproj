@@ -128,52 +128,43 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\A7002463-11.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\128_belldandy1024.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GG1.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\9781632366023.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BoardImage\1.jpg">
+    <Content Include="BoardImage\A.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\10.jpg">
+    <Content Include="BoardImage\B.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\11.jpg">
+    <Content Include="BoardImage\C.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\2.jpg">
+    <Content Include="BoardImage\D.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\3.jpg">
+    <Content Include="BoardImage\E.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\4.jpg">
+    <Content Include="BoardImage\F.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\5.jpg">
+    <Content Include="BoardImage\G.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\6.jpg">
+    <Content Include="BoardImage\H.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\7.jpg">
+    <Content Include="BoardImage\I.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\8.jpg">
+    <Content Include="BoardImage\J.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BoardImage\9.jpg">
+    <Content Include="BoardImage\K.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="Resources\Icon.ico" />
+    <Content Include="Resources\Logo.jpg" />
+    <Content Include="Resources\MyIcon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
