@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormScore));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -35,12 +36,12 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTemplate = new System.Windows.Forms.Label();
             this.pnlEnterScore = new System.Windows.Forms.Panel();
+            this.lblRank = new System.Windows.Forms.Label();
             this.lblCongratulation = new System.Windows.Forms.Label();
             this.txtNewScoreName = new System.Windows.Forms.TextBox();
             this.btnNewRank = new System.Windows.Forms.Button();
             this.lblNewScoreRank = new System.Windows.Forms.Label();
             this.pnlShowScore = new System.Windows.Forms.Panel();
-            this.lblRank = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlEnterScore.SuspendLayout();
             this.pnlShowScore.SuspendLayout();
@@ -147,6 +148,17 @@
             this.pnlEnterScore.Size = new System.Drawing.Size(433, 240);
             this.pnlEnterScore.TabIndex = 35;
             // 
+            // lblRank
+            // 
+            this.lblRank.AutoSize = true;
+            this.lblRank.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRank.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblRank.Location = new System.Drawing.Point(20, 46);
+            this.lblRank.Name = "lblRank";
+            this.lblRank.Size = new System.Drawing.Size(0, 30);
+            this.lblRank.TabIndex = 36;
+            this.lblRank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblCongratulation
             // 
             this.lblCongratulation.AutoSize = true;
@@ -198,17 +210,6 @@
             this.pnlShowScore.Size = new System.Drawing.Size(774, 421);
             this.pnlShowScore.TabIndex = 36;
             // 
-            // lblRank
-            // 
-            this.lblRank.AutoSize = true;
-            this.lblRank.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRank.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lblRank.Location = new System.Drawing.Point(20, 46);
-            this.lblRank.Name = "lblRank";
-            this.lblRank.Size = new System.Drawing.Size(0, 30);
-            this.lblRank.TabIndex = 36;
-            this.lblRank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FormScore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +219,7 @@
             this.Controls.Add(this.pnlEnterScore);
             this.Controls.Add(this.lblTemplate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormScore";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

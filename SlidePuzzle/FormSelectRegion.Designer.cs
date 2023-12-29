@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectRegion));
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
@@ -89,7 +90,7 @@
             this.lblImageSizeInfo.Size = new System.Drawing.Size(0, 21);
             this.lblImageSizeInfo.TabIndex = 5;
             // 
-            // frmSelectRegion
+            // FormSelectRegion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,7 +100,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBoxMain);
-            this.Name = "frmSelectRegion";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormSelectRegion";
             this.Text = "Choose Region";
             this.Load += new System.EventHandler(this.frmSelectRegion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
