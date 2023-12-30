@@ -139,9 +139,22 @@ namespace SlidePuzzle.UI
                     {
                         return;
                     }
-                    System.IO.File.Delete(fileName);
-                    LoadListImage();
-                    RenderImages(listImageInfo , numberofImagePerRow);
+                    Boolean Candelete = false;
+                    try
+                    {
+                         System.IO.File.Delete(fileName);
+                        Candelete = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("We have a problem when try to delete an image, it is possible that the image is being used\n" + ex.ToString ());
+                    }
+                    if (Candelete)
+                    {
+                        LoadListImage();
+                        RenderImages(listImageInfo, numberofImagePerRow);
+                    }
+                    
                 };
 
                 pic.ItemDoubleClick += (o, e2) =>
