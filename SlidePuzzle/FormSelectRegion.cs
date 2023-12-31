@@ -210,6 +210,7 @@ namespace SlidePuzzle
         }
         private void frmSelectRegion_Load(object sender, EventArgs e)
         {
+            this.Icon = Resource1.Icon;
             this.lblImageSizeInfo.Text = $"Please make sure that image you choose has the size at least {Configuration.Instance.BoardWidth }x{Configuration.Instance.BoardWidth}";
             String WarningMessage = "";
             //if(!IsImageValid (ImageFileName , ))

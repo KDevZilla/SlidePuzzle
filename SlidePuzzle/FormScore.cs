@@ -143,6 +143,7 @@ namespace SlidePuzzle
         public int RowSize { get; set; } = -1;
         private void FormScore_Load(object sender, EventArgs e)
         {
+            this.Icon = Resource1.Icon;
             this.Text = $"Score for board size {RowSize} x {RowSize}";
 
             this.txtNewScoreName.Enter += (o, e2) => txtNewScoreName.SelectAll();

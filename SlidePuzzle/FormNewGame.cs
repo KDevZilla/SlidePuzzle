@@ -63,7 +63,8 @@ namespace SlidePuzzle
         }
         private void FormTestPnlDisplay_Load(object sender, EventArgs e)
         {
-            if(ImageFilePath.Equals(""))
+            this.Icon = Resource1.Icon;
+            if (ImageFilePath.Equals(""))
             {
                 throw new Exception($"{ImageFilePath} is blank, please set it first");
             }

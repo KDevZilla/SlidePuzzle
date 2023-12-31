@@ -26,5 +26,10 @@ namespace SlidePuzzle
         {
             System.Diagnostics.Process.Start(this.linkLabel1.Text);
         }
+
+        private void FormAbout_Load(object sender, EventArgs e)
+        {
+            this.Icon = Resource1.Icon;
+        }
     }
 }

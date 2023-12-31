@@ -88,7 +88,7 @@ namespace SlidePuzzle
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            
+            this.Icon = Resource1.Icon;
 
 
 
@@ -287,6 +287,7 @@ namespace SlidePuzzle
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAbout f = new FormAbout();
+            
             f.StartPosition = FormStartPosition.CenterParent;
             f.ShowDialog(this);
 
